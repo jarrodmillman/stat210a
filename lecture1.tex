@@ -1,0 +1,68 @@
+\documentclass[twoside]{article}
+\usepackage{amsmath,amssymb,amsthm,graphicx}
+\usepackage{epsfig}
+\usepackage[authoryear]{natbib}
+
+\input{stat-macros}
+
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf Stat210A:~Theoretical Statistics \hfill Lecture Date: #4} }
+       \vspace{6mm}
+       \hbox to 6.28in { {\Large \hfill #1  \hfill}  }
+       \vspace{6mm}
+       \hbox to 6.28in { {\it Lecturer: #2 \hfill Scribe: #3} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{#1}{#1}
+   \vspace*{4mm}
+}
+
+% Local Macros Put your favorite macros here that don't appear in
+% stat-macros.tex.  We can eventually incorporate them into
+% stat-macros.tex if they're of general use.
+
+\begin{document}
+
+\lecture{Lecture 1: Statistical Decision Theory}{Michael I. Jordan}{K. Jarrod Millman}{August 28, 2014}
+
+\section{General Suggestions}
+\begin{itemize}
+\item Use the macros in \verb+stat-macros.tex+ when possible.
+  Also feel free to use our own favorite macros, and send them to
+  us if you feel that they'll be generally useful.
+\item To make these scribe notes maximally useful, you might consider
+  adding textbook references for theorems, definitions, examples, etc.
+  Make use of \verb+stat.bib+.
+\item Add \verb+\label+'s for important theorems, definitions, and
+  examples.  This will facilitate future cross-referencing.  
+\item If you'd like to refer back to a theorem we've proved in an
+  earlier lecture, the easiest thing would be to refer to the
+  equivalent theorem in one of our textbooks.
+\end{itemize}
+
+
+\bibliographystyle{apalike}
+\bibliography{stat}
+
+\end{document}
+
+
+
