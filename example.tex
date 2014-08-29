@@ -1,0 +1,152 @@
+\documentclass[twoside]{article}
+\usepackage{amsmath,amssymb,amsthm,graphicx}
+\usepackage{epsfig}
+\usepackage[authoryear]{natbib}
+
+\input{stat-macros}
+
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf Stat210A:~Theoretical Statistics \hfill Lecture Date: #4} }
+       \vspace{6mm}
+       \hbox to 6.28in { {\Large \hfill #1  \hfill}  }
+       \vspace{6mm}
+       \hbox to 6.28in { {\it Lecturer: #2 \hfill Scribe: #3} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{#1}{#1}
+   \vspace*{4mm}
+}
+
+% Local Macros Put your favorite macros here that don't appear in
+% stat-macros.tex.  We can eventually incorporate them into
+% stat-macros.tex if they're of general use.
+
+\begin{document}
+
+\lecture{Probabilities R Us}{Michael I. Jordan}{Winnie Pooh}{August XXX, 2014}
+
+\section{General Suggestions}
+\begin{itemize}
+\item Use the macros in \verb+stat-macros.tex+ when possible.
+  Also feel free to use our own favorite macros, and send them to
+  us if you feel that they'll be generally useful.
+\item To make these scribe notes maximally useful, you might consider
+  adding textbook references for theorems, definitions, examples, etc.
+  Make use of \verb+stat.bib+.
+\item Add \verb+\label+'s for important theorems, definitions, and
+  examples.  This will facilitate future cross-referencing.  
+\item If you'd like to refer back to a theorem we've proved in an
+  earlier lecture, the easiest thing would be to refer to the
+  equivalent theorem in one of our textbooks.
+\end{itemize}
+\section{Some Sample Stuff}
+\begin{definition}[Covering Number]\label{def:covering-number}
+  \citep[p.~25]{pollard} Let $Q$ be a probability measure on $S$ and
+  $\cf$ be a class of functions in $\cl^1(Q)$. For each $\eps>0$
+  define the covering number $N_1(\eps,Q,\cf)$ as the smallest value
+  of $m$ for which there exist functions $g_1,\dots,g_m$ (not
+  necessarily in $\cf$) such that $\min_j Q|f-g_j| \le \eps$ for each
+  $f$ in $\cf$. For definiteness set $N_1(\eps,Q,\cf)=\infty$ if no
+  such $m$ exists.
+\end{definition}
+
+\begin{remark} Although Pollard doesn't define it, the log of the
+  covering number (see Definition~\ref{def:covering-number}) is
+  called the metric entropy.
+\end{remark}
+
+\begin{lemma}[Basic Inequality for Convex Classes]\label{lemma:basic-ineq-convex-class}
+  \citep[Lemma 4.5, p.~51]{geer} Suppose $\cp$ is convex.  Then
+  $$
+  h^2(\hat{p}_n,p_0) \le \int \frac{2\hat{p}_n}{\hat{p}_n+p_0}\,d(P_n-P).
+  $$
+\end{lemma}
+\begin{proof}
+  We first prove step 1, then use induction to complete steps 2
+  through n, and then we're done.
+  \begin{enumerate} 
+  \item Show that $A<B$
+
+    To show $A<B$, use a property of the MLE $\hat{p}_n$ and the
+    convexity of the class $\cp$.
+
+  \item Show $B<C$
+    
+    By concavity of $\log$, we know $\log(x) \le x-a$ for $x>0$.  The inequality follows from this.
+    
+  \item Proof follows by induction
+
+    This part's obvious.
+  \end{enumerate}
+  
+\end{proof}
+
+The following theorem follows from
+Lemma~\ref{lemma:basic-ineq-convex-class}. It is from \citet[Thm 4.6, p.~51]{geer}:
+
+\begin{theorem}[Hellinger consistency of MLE for convex classes]
+\label{thm:mle-convex-class}
+  Suppose $\cp$ is convex.  Assume moreover that
+  $$
+  \frac{1}{n} H_1(\delta,\cg^{(\conv)},P_n) \convp 0, \quad \mbox{for all } \delta>0
+  $$
+  Then $h(\hat{p}_n,p_0) \convas 0$.
+\end{theorem}
+\begin{proof}
+  Follows from some other stuff.
+\end{proof}
+
+
+\subsection{A subsection heading}
+
+Here is how to typeset an array of equations.
+
+\begin{eqnarray}
+	x & = & y + z  \label{eq:notInteresting} \\
+%
+     \alpha & = & \frac{\beta}{\gamma} \label{eq:interesting}
+\end{eqnarray}
+
+Notice that equation~(\ref{eq:interesting}) is interesting, while
+equation~(\ref{eq:notInteresting}) isn't really.
+
+And a table.
+                                                                                
+\begin{table}[h]
+\centerline{
+    \begin{tabular}{|c|cc|}
+        \hline
+        \textbf{Method} & Cost & Iterations \\
+        \hline
+        Naive descent       & 12 & 200 \\
+        Newton's method & 500 & 30 \\
+        \hline
+    \end{tabular}}
+\caption{Comparison of different methods.}
+\end{table}
+
+\bibliographystyle{apalike}
+\bibliography{stat}
+
+\end{document}
+
+
+
