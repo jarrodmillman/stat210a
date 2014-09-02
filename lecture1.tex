@@ -41,28 +41,58 @@
 
 \begin{document}
 
-\lecture{Lecture 1: Statistical Decision Theory}{Michael I. Jordan}{K. Jarrod Millman}{August 28, 2014}
+\lecture{Lecture 1: Statistical Decision Theory}{Michael I. Jordan}{K. Jarrod
+Millman}{August 28, 2014}
 
-\section{General Suggestions}
-\begin{itemize}
-\item Use the macros in \verb+stat-macros.tex+ when possible.
-  Also feel free to use our own favorite macros, and send them to
-  us if you feel that they'll be generally useful.
-\item To make these scribe notes maximally useful, you might consider
-  adding textbook references for theorems, definitions, examples, etc.
-  Make use of \verb+stat.bib+.
-\item Add \verb+\label+'s for important theorems, definitions, and
-  examples.  This will facilitate future cross-referencing.  
-\item If you'd like to refer back to a theorem we've proved in an
-  earlier lecture, the easiest thing would be to refer to the
-  equivalent theorem in one of our textbooks.
-\end{itemize}
+\section{Notation}
 
+data $X=(X_1,X_2,...,X_n)$ for $n \in \{1,2,...\}$
+
+assumed that the distribution of $X$ belongs to a set $\mathcal{P} = \{P_\theta
+: \theta \in \Omega\}$ of probability distributions.  We call $\mathcal{P}$ the
+model, $\Omega$ the parameter space (i.e., the set of all possible values of
+$\theta$). 
+
+A statistic $\delta(X)$ is a function of the data $X$ which is may be real- or
+funtion-valued.
+
+In statistical estimation the goal is to find a statistic $\delta$ such that
+$\delta(X)$ is "close to" $g(\theta)$, where $\theta$ is the true parameter
+that indexes $X$'s distribution:
+\begin{equation}
+X \sim P_\theta.
+\end{equation}
+We say that $\delta$ is an estimator of $g(\theta)$.  To make clear what we mean
+by "close to" above we need to turn to Decision Theory.
+
+\section{Decision Theory Framework}
+
+\begin{figure}[ht]
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+\includegraphics[width=\textwidth]{../fig/risk1-crop.pdf}
+\caption{default}
+\label{fig:figure1}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+\includegraphics[width=\textwidth]{../fig/risk2-crop.pdf}
+\caption{default}
+\label{fig:figure2}
+\end{minipage}
+\end{figure}
+
+\section{Example}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.4\textwidth]{../fig/risk3-crop.pdf}
+\caption{default}
+\label{fig:figure3}
+\end{figure}
 
 \bibliographystyle{apalike}
 \bibliography{stat}
 
 \end{document}
-
-
-
