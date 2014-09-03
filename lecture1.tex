@@ -57,7 +57,7 @@ of $\theta$).  For this semester, we will focus on parameteric models where
 $\theta \subset \reals^P$.  Nonparameteric models will be covered in
 210B.
 
-A statistic $\delta(X)$ is a function of the data $X$ which is may be real- or
+A statistic $\delta(X)$ is a function of the data $X$ which may be real- or
 funtion-valued.  In statistical estimation the goal is to find a statistic
 $\delta$ such that $\delta(X)$ is "close to" $g(\theta)$, where $\theta$ is the
 true parameter that indexes $X$'s distribution $P_\theta$.  We say that
@@ -65,12 +65,12 @@ $\delta$ is an estimator of $g(\theta)$.
 
 \section{Decision Theory Framework}
 
-To make precise what we mean by "close to" we introduce Statistical Decision
-Theory. Statistical decision theory was first developed by Abraham Wald and was
+To make precise what we mean by "close to" we introduce statistical decision
+theory. Statistical decision theory was first developed by Abraham Wald and was
 inspired by work in economics.
 
-First we introduce the notion of a loss function $L$ which given a parameter
-$\theta$ and an estimate $\delta(x)$ returns a non-negative real number which
+We first must introduce the notion of a loss function $L$, which given a parameter
+$\theta$ and an estimate $\delta(x)$ returns a non-negative real number that
 is the loss associated with estimating $g(\theta)$ with $\delta(x)$.  We also
 require that there is no loss for estimating $g(\theta)$ with the correct
 answer (i.e., $L(\theta, g(\theta))=0$).  For example, we may be interested
@@ -84,8 +84,8 @@ is random. From the frequentist perspective, $\theta$ is assumed fixed (while
 unknown) so the focus is on finding statistics that are "good" over lots of
 different $x$.  For instance, if you are writing a general purpose software
 package, then you want to provide some guarentee that your code will perform
-well on lots of different data.  While from the Bayesian perspective the
-focus will be on 
+well on lots of different data.  While the Bayesian will condition on the data
+and treat the parameter $\theta$ as random.
 
 \subsection{Frequentist risk}
 
@@ -144,21 +144,7 @@ To compare two admissible statistics, we need to impose additional constraints.
 
 Constraints such as runtime are increasingly used in practice.
 
-\subsection{Bayes risk}
-
-If we are only interested in particular values of $\theta$, it may be desirable
-to weight those values more heavily.  This leads to Bayes' risk:
-\begin{equation}
-R(\delta) = \int R(\theta, \delta) \pi(\theta) d\theta.
-\end{equation}
-To make comparison of different statistics meaningful, $\pi(\theta)$ is
-required to be a non-negative function of $\theta$ which integrates to 1.  For
-frequentist, $\pi(\theta)$ is viewed as a weighting function.  For a Bayesian,
-$\pi(\theta)$ is viewed as a prior on $\theta$. Regardless of how it is viewed,
-if everyone agrees on a particular $\pi(\theta)$ then they can agree on
-which estimator $\delta$ is best.
-
-\section{Example}
+\subsection{Example}
 
 For concreteness, consider \citep[Example 3.1, p.~40-41]{keener} the following
 random variable
@@ -185,6 +171,21 @@ R(\theta, \delta_3) &= \frac{(9-8\theta)(1+8\theta)}{106^2}
 \caption{}
 \label{fig:figure3}
 \end{figure}
+
+\section{Bayes risk}
+
+If we are only interested in particular values of $\theta$, it may be desirable
+to weight those values more heavily.  This leads to Bayes' risk:
+\begin{equation}
+R(\delta) = \int R(\theta, \delta) \pi(\theta) d\theta.
+\end{equation}
+To make comparison of different statistics meaningful, $\pi(\theta)$ is
+required to be a non-negative function of $\theta$ which integrates to 1.  For
+frequentist, $\pi(\theta)$ is viewed as a weighting function.  For a Bayesian,
+$\pi(\theta)$ is viewed as a prior on $\theta$. Regardless of how it is viewed,
+if everyone agrees on a particular $\pi(\theta)$ then they can agree on
+which estimator $\delta$ is best.
+
 
 \bibliographystyle{apalike}
 \bibliography{stat}
