@@ -46,49 +46,141 @@ Millman}{August 28, 2014}
 
 \section{Notation}
 
-data $X=(X_1,X_2,...,X_n)$ for $n \in \{1,2,...\}$
-
-assumed that the distribution of $X$ belongs to a set $\mathcal{P} = \{P_\theta
-: \theta \in \Omega\}$ of probability distributions.  We call $\mathcal{P}$ the
-model, $\Omega$ the parameter space (i.e., the set of all possible values of
-$\theta$). 
+Statistical inference concerns learning from data.  In general, we will
+consider data $X=(X_1,X_2,...,X_n)$ for $n \in \{1,2,...\}$ to be a random
+vector (or variable).  In other words, we assume that there exists some
+distribution $P_\theta$ such that $X \sim P_\theta$ where $P_\theta$  belongs
+to a set $\cp = \{P_\theta : \theta \in \Omega\}$ of probability
+distributions.  We call $\cp$ our statistical model for the distribtion
+of $X$ and $\Omega$ our parameter space (i.e., the set of all possible values
+of $\theta$).  For this semester, we will focus on parameteric models where
+$\theta \subset \reals^P$.  Nonparameteric models will be covered in
+210B.
 
 A statistic $\delta(X)$ is a function of the data $X$ which is may be real- or
-funtion-valued.
-
-In statistical estimation the goal is to find a statistic $\delta$ such that
-$\delta(X)$ is "close to" $g(\theta)$, where $\theta$ is the true parameter
-that indexes $X$'s distribution:
-\begin{equation}
-X \sim P_\theta.
-\end{equation}
-We say that $\delta$ is an estimator of $g(\theta)$.  To make clear what we mean
-by "close to" above we need to turn to Decision Theory.
+funtion-valued.  In statistical estimation the goal is to find a statistic
+$\delta$ such that $\delta(X)$ is "close to" $g(\theta)$, where $\theta$ is the
+true parameter that indexes $X$'s distribution $P_\theta$.  We say that
+$\delta$ is an estimator of $g(\theta)$.
 
 \section{Decision Theory Framework}
+
+To make precise what we mean by "close to" we introduce Statistical Decision
+Theory. Statistical decision theory was first developed by Abraham Wald and was
+inspired by work in economics.
+
+First we introduce the notion of a loss function $L$ which given a parameter
+$\theta$ and an estimate $\delta(x)$ returns a non-negative real number which
+is the loss associated with estimating $g(\theta)$ with $\delta(x)$.  We also
+require that there is no loss for estimating $g(\theta)$ with the correct
+answer (i.e., $L(\theta, g(\theta))=0$).  For example, we may be interested
+in the squared error as our loss function:
+\begin{equation}
+L(\theta, \delta(x)) = (\theta - \delta(x))^2.  \label{loss:squarederror}
+\end{equation}
+
+In practice, the true parameter $\theta$ is unknown and the statistic $\delta(X)$
+is random. From the frequentist perspective, $\theta$ is assumed fixed (while
+unknown) so the focus is on finding statistics that are "good" over lots of
+different $x$.  For instance, if you are writing a general purpose software
+package, then you want to provide some guarentee that your code will perform
+well on lots of different data.  While from the Bayesian perspective the
+focus will be on 
+
+\subsection{Frequentist risk}
+
+The frequentist risk is defined as
+\begin{equation}
+R(\theta, \delta) = \ex_{\theta} L(\theta, \delta(X))
+\end{equation}
+where $\ex_{\theta}$ means that we are taking the expectation with respect to
+$P_{\theta}$. Even though $X$ has been integrated out the frequentist risk
+$R$ is still a function of $\theta$.
+
+In certain situations, comparing the risk of two estimators is straightforward.
+Consider the situation in Figure \ref{fig:figure1}.  Here $R(\theta, \delta_2)$
+always has lower risk than $R(\theta, \delta_1)$.  This motivates the following
+definitions.
+
+\begin{definition}\label{def:dominate}
+  Given a specific loss function $R$ and two estimators $\delta_1$ and $\delta_2$,
+  we say $\delta_2$ dominates $\delta_1$ if for all $\theta$ $R(\theta, \delta_2)
+  \leq R(\theta, \delta_1)$ and there exists a $\theta$ such that $R(\theta,
+  \delta_2) < R(\theta, \delta_1)$.
+\end{definition}
+
+\begin{definition}\label{def:inadmissable}
+  Given a specific loss function $R$, an estimator $\delta_1$ is said to be
+  inadmissable if there exists an estimator $\delta_2$ which dominates it. 
+\end{definition}
 
 \begin{figure}[ht]
 \begin{minipage}[b]{0.45\linewidth}
 \centering
-\includegraphics[width=\textwidth]{../fig/risk1-crop.pdf}
-\caption{default}
+\includegraphics[width=\textwidth]{fig/risk1-crop.pdf}
+\caption{Two frequentist risk functions where one is dominated by the other.}
 \label{fig:figure1}
 \end{minipage}
 \hspace{0.5cm}
 \begin{minipage}[b]{0.45\linewidth}
 \centering
-\includegraphics[width=\textwidth]{../fig/risk2-crop.pdf}
-\caption{default}
+\includegraphics[width=\textwidth]{fig/risk2-crop.pdf}
+\caption{Two frequentist risk functions where neither is dominated by the other.}
 \label{fig:figure2}
 \end{minipage}
 \end{figure}
 
+To compare two admissible statistics, we need to impose additional constraints.
+
+\begin{enumerate}
+\item Initially a lot of attention was focused on unbiased estimators. An
+  unbiased estimator is one where $\ex_{\theta}\delta(X) = g(\theta)$. It
+  was often found that there exists a best (i.e., lowest variance) unbiased
+  estimator.
+\item \textbf{Equivariance}.
+\item Minimax focuses on the worst case performance.  In other words, the estimator
+   with lowest maximal risk is choosen.
+\end{enumerate}
+
+Constraints such as runtime are increasingly used in practice.
+
+\subsection{Bayes risk}
+
+If we are only interested in particular values of $\theta$, it may be desirable
+to weight those values more heavily.  This leads to Bayes' risk:
+\begin{equation}
+R(\delta) = \int R(\theta, \delta) \pi(\theta) d\theta.
+\end{equation}
+To make comparison of different statistics meaningful, $\pi(\theta)$ is
+required to be a non-negative function of $\theta$ which integrates to 1.  For
+frequentist, $\pi(\theta)$ is viewed as a weighting function.  For a Bayesian,
+$\pi(\theta)$ is viewed as a prior on $\theta$. Regardless of how it is viewed,
+if everyone agrees on a particular $\pi(\theta)$ then they can agree on
+which estimator $\delta$ is best.
+
 \section{Example}
+
+For concreteness, consider \citep[Example 3.1, p.~40-41]{keener} the following
+random variable
+\begin{equation*}
+X \sim Bin(100, \theta)
+\end{equation*}
+for $\theta \in [0,1]$.  We now examine the frequentist risk associated with
+the following three estimators of $g(\theta) = \theta$ under the squared error
+loss function:
+\begin{equation*}
+\delta_1(X) = \frac{X}{100}, \qquad \delta_2(X) = \frac{X+3}{100},
+              \qquad \text{and} \quad \delta_3(X) = \frac{X+3}{106}.
+\end{equation*}
+We have the following risk functions for our three estimators:
+\begin{align*}
+R(
+\end{align*}
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.4\textwidth]{../fig/risk3-crop.pdf}
-\caption{default}
+\includegraphics[width=0.4\textwidth]{fig/risk3-crop.pdf}
+\caption{}
 \label{fig:figure3}
 \end{figure}
 

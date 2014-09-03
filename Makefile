@@ -2,8 +2,8 @@ BUILDDIR  = _build
 CODEDIR   = code
 FIGDIR    = fig
 #BINDIR    = ../../bin
-TEX2PDF  := cd $(BUILDDIR) && TEXINPUTS="..:" pdflatex -interaction=batchmode
-#KNIT     := cd $(BUILDDIR) && $(BINDIR)/knitr
+TEX2PDF   := cd $(BUILDDIR) && TEXINPUTS="..:" pdflatex -interaction=batchmode
+BIBTEX    := cd $(BUILDDIR) && bibtex
 
 all: clean header 
 
@@ -29,6 +29,11 @@ $(BUILDDIR)/%.pdf: %.tex
 
 
 %: %.tex $(BUILDDIR) figs
-	($(TEX2PDF) ../$(<F))
-	($(TEX2PDF) ../$(<F))
+	cp $(<F) $(BUILDDIR)/.
+	cp stat.bib $(BUILDDIR)/.
+	cp -a fig $(BUILDDIR)/.
+	($(TEX2PDF) $(<F))
+	($(BIBTEX) $(@))
+	($(TEX2PDF) $(<F))
+	($(TEX2PDF) $(<F))
 	cp $(BUILDDIR)/$(@).pdf $(@).pdf 
