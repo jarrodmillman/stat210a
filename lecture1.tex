@@ -51,48 +51,48 @@ consider data $X=(X_1,X_2,...,X_n)$ for $n \in \{1,2,...\}$ to be a random
 vector (or variable).  In other words, we assume that there exists some
 distribution $P_\theta$ such that $X \sim P_\theta$ where $P_\theta$  belongs
 to a set $\cp = \{P_\theta : \theta \in \Omega\}$ of probability
-distributions.  We call $\cp$ our statistical model for the distribtion
+distributions.  We call $\cp$ our statistical model for the distribution
 of $X$ and $\Omega$ our parameter space (i.e., the set of all possible values
-of $\theta$).  For this semester, we will focus on parameteric models where
-$\theta \subset \reals^P$.  Nonparameteric models will be covered in
+of $\theta$).  This semester, we focus on parametric models where
+$\theta \subset \reals^P$.  Nonparametric models will be covered in
 210B.
 
 A statistic $\delta(X)$ is a function of the data $X$ which may be real- or
-funtion-valued.  In statistical estimation the goal is to find a statistic
-$\delta$ such that $\delta(X)$ is "close to" $g(\theta)$, where $\theta$ is the
-true parameter that indexes $X$'s distribution $P_\theta$.  We say that
+function-valued.  In statistical estimation the goal is to find a statistic
+$\delta$ such that $\delta(X)$ is ``close to" $g(\theta)$, where $\theta$ is the
+``true" parameter that indexes $X$'s distribution $P_\theta$.  We say that
 $\delta$ is an estimator of $g(\theta)$.
 
 \section{Decision Theory Framework}
 
-To make precise what we mean by "close to" we introduce statistical decision
+To make precise what we mean by ``close to" we introduce statistical decision
 theory. Statistical decision theory was first developed by Abraham Wald and was
 inspired by work in economics.
 
-We first must introduce the notion of a loss function $L$, which given a parameter
+We begin by introducing the notion of a loss function $L$, which given a parameter
 $\theta$ and an estimate $\delta(x)$ returns a non-negative real number that
 is the loss associated with estimating $g(\theta)$ with $\delta(x)$.  We also
 require that there is no loss for estimating $g(\theta)$ with the correct
 answer (i.e., $L(\theta, g(\theta))=0$).  For example, we may be interested
-in the squared error as our loss function:
-\begin{equation}
-L(\theta, \delta(x)) = (\theta - \delta(x))^2.  \label{loss:squarederror}
-\end{equation}
+in the squared error loss function
+\begin{equation*}
+L(\theta, \delta(x)) = (\theta - \delta(x))^2.
+\end{equation*}
 
-In practice, the true parameter $\theta$ is unknown and the statistic $\delta(X)$
+In practice, the ``true" parameter $\theta$ is unknown and the statistic $\delta(X)$
 is random. From the frequentist perspective, $\theta$ is assumed fixed (while
-unknown) so the focus is on finding statistics that are "good" over lots of
+unknown) so the focus is on finding statistics that are ``good" over lots of
 different $x$.  For instance, if you are writing a general purpose software
-package, then you want to provide some guarentee that your code will perform
-well on lots of different data.  While the Bayesian will condition on the data
+package, then you want to provide some guarantee that your code will perform
+well on lots of different data.  Alternatively, Bayesians condition on the data
 and treat the parameter $\theta$ as random.
 
 \subsection{Frequentist risk}
 
 The frequentist risk is defined as
-\begin{equation}
+\begin{equation*}
 R(\theta, \delta) = \ex_{\theta} L(\theta, \delta(X))
-\end{equation}
+\end{equation*}
 where $\ex_{\theta}$ means that we are taking the expectation with respect to
 $P_{\theta}$. Even though $X$ has been integrated out the frequentist risk
 $R$ is still a function of $\theta$.
@@ -103,15 +103,15 @@ always has lower risk than $R(\theta, \delta_1)$.  This motivates the following
 definitions.
 
 \begin{definition}\label{def:dominate}
-  Given a specific loss function $R$ and two estimators $\delta_1$ and $\delta_2$,
-  we say $\delta_2$ dominates $\delta_1$ if for all $\theta$ $R(\theta, \delta_2)
-  \leq R(\theta, \delta_1)$ and there exists a $\theta$ such that $R(\theta,
+  Given a risk function $R$ and two estimators $\delta_1$ and $\delta_2$,
+  we say $\delta_2$ dominates $\delta_1$ if $\theta$ $R(\theta, \delta_2)
+  \leq R(\theta, \delta_1)$ for all and there exists a $\theta$ such that $R(\theta,
   \delta_2) < R(\theta, \delta_1)$.
 \end{definition}
 
 \begin{definition}\label{def:inadmissable}
-  Given a specific loss function $R$, an estimator $\delta_1$ is said to be
-  inadmissable if there exists an estimator $\delta_2$ which dominates it. 
+  Given risk function $R$, an estimator $\delta_1$ is said to be
+  inadmissible if there exists an estimator $\delta_2$ which dominates it. 
 \end{definition}
 
 \begin{figure}[ht]
@@ -130,20 +130,26 @@ definitions.
 \end{minipage}
 \end{figure}
 
-To compare two admissible statistics (see Figure~\ref{fig:figure2}, we need
+To compare two admissible statistics (see Figure~\ref{fig:figure2}), we need
 to impose additional constraints.
 
 \begin{enumerate}
-\item Initially a lot of attention was focused on unbiased estimators. An
+\item Initially much attention focused on unbiased estimators. An
   unbiased estimator is one where $\ex_{\theta}\delta(X) = g(\theta)$. It
   was often found that there exists a best (i.e., lowest variance) unbiased
-  estimator.
-\item \textbf{Equivariance}.
+  estimator.  However, many good procedures are biased and some biased
+  ones are inadmissible.  For instance, in \cite{stein1956inadmissibility},
+  they show that the sample mean is an inadmissible
+  estimator of the mean of a multivariate Gaussian once you have three or
+  more dimensions.
+\item Equivariance is another useful criteria, which requires estimators
+  to change in a coherent way when the data and parameter change in a
+  compatible way.
 \item Minimax focuses on the worst case performance.  In other words, the estimator
-   with lowest maximal risk is choosen.
+   with lowest maximal risk is chosen.
+\item Constraints such as run time are increasingly used in practice.
 \end{enumerate}
 
-Constraints such as runtime are increasingly used in practice.
 
 \subsection{Example}
 
@@ -159,7 +165,7 @@ loss function:
 \delta_1(X) = \frac{X}{100}, \qquad \delta_2(X) = \frac{X+3}{100},
               \qquad \text{and} \quad \delta_3(X) = \frac{X+3}{106}.
 \end{equation*}
-We have the following risk functions for our three estimators:
+We have the following risk functions for our three estimators
 \begin{align*}
 R(\theta, \delta_1) &= \frac{\theta(1-\theta)}{100}\\
 R(\theta, \delta_2) &= \frac{9+100 \theta(1-\theta)}{100^2}\\
@@ -175,7 +181,7 @@ Figure~\ref{fig:figure3}.
 \label{fig:figure3}
 \end{figure}
 
-It should be clear from the figure that $\delta_2$ is inadmissable as both
+It should be clear from the figure that $\delta_2$ is inadmissible as both
 of the other risk functions dominate it.  According to the minimax criteria,
 you would choose $\delta_3$ over $\delta_1$ since it has better worse case
 risk.  Using the traditional criteria of unbiasedness, you would choose
