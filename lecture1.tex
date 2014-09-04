@@ -98,7 +98,7 @@ $P_{\theta}$. Even though $X$ has been integrated out the frequentist risk
 $R$ is still a function of $\theta$.
 
 In certain situations, comparing the risk of two estimators is straightforward.
-Consider the situation in Figure \ref{fig:figure1}.  Here $R(\theta, \delta_2)$
+Consider the situation in Figure~\ref{fig:figure1}.  Here $R(\theta, \delta_2)$
 always has lower risk than $R(\theta, \delta_1)$.  This motivates the following
 definitions.
 
@@ -130,7 +130,8 @@ definitions.
 \end{minipage}
 \end{figure}
 
-To compare two admissible statistics, we need to impose additional constraints.
+To compare two admissible statistics (see Figure~\ref{fig:figure2}, we need
+to impose additional constraints.
 
 \begin{enumerate}
 \item Initially a lot of attention was focused on unbiased estimators. An
@@ -164,13 +165,24 @@ R(\theta, \delta_1) &= \frac{\theta(1-\theta)}{100}\\
 R(\theta, \delta_2) &= \frac{9+100 \theta(1-\theta)}{100^2}\\
 R(\theta, \delta_3) &= \frac{(9-8\theta)(1+8\theta)}{106^2}
 \end{align*}
+for $\theta \in [0,1]$.  The three risk functions are plotted in
+Figure~\ref{fig:figure3}. 
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.4\textwidth]{fig/risk3-crop.pdf}
-\caption{}
+\caption{Frequentist risk functions for $\delta_1$, $\delta_2$, and $\delta_3$}
 \label{fig:figure3}
 \end{figure}
+
+It should be clear from the figure that $\delta_2$ is inadmissable as both
+of the other risk functions dominate it.  According to the minimax criteria,
+you would choose $\delta_3$ over $\delta_1$ since it has better worse case
+risk.  Using the traditional criteria of unbiasedness, you would choose
+$\delta_1$ over $\delta_3$ since $\delta_1$ is unbiased while $\delta_3$ is
+biased.  If we knew that $\theta$ should be close to $1/2$ then $\delta_3$
+would give us lower frequentist risk, while if we knew that $\theta$ should
+be closer to 0 or 1 then $\delta_1$ would give us lower risk.
 
 \section{Bayes risk}
 
@@ -185,7 +197,6 @@ frequentist, $\pi(\theta)$ is viewed as a weighting function.  For a Bayesian,
 $\pi(\theta)$ is viewed as a prior on $\theta$. Regardless of how it is viewed,
 if everyone agrees on a particular $\pi(\theta)$ then they can agree on
 which estimator $\delta$ is best.
-
 
 \bibliographystyle{apalike}
 \bibliography{stat}
