@@ -41,7 +41,7 @@
 
 \begin{document}
 
-\lecture{Title}{Tamara Broderick}{K. Jarrod
+\lecture{Recitation 1: Probability and measure}{Tamara Broderick}{K. Jarrod
 Millman \& Richard Shin}{September 3, 2014}
 
 \section{Densities (Radon-Nikodym)}
@@ -137,21 +137,21 @@ For discrete random variables,
 
 \begin{align*}
   P(Y = y) \\
-  \E[f(Y)] &= \sum_y f(y) P(Y = y) \\
-  \E[f(X, Y) | X = x] &= \sum_y f(x, y) P(Y = y | X = x)
+  \ex[f(Y)] &= \sum_y f(y) P(Y = y) \\
+  \ex[f(X, Y) | X = x] &= \sum_y f(x, y) P(Y = y | X = x)
 \end{align*}
 The last line is a conditional expectation.
 
 \begin{theorem}[Tower property]
 \begin{align*}
-  \E[Y | X] = \E[\E[Y | X, W] | X]
+  \ex[Y | X] = \ex[\ex[Y | X, W] | X]
 \end{align*}
 \end{theorem}
 \begin{proof}
-  Here, $\E[Y | X, W]$ is a function of $X, W$. 
+  Here, $\ex[Y | X, W]$ is a function of $X, W$. 
 
   \begin{align*}
-    \E[\E[Y | X, W] | X] &= \sum_{\tilde{x}, w} P(X = \tilde{x}, W = w | X = x)
+    \ex[\ex[Y | X, W] | X] &= \sum_{\tilde{x}, w} P(X = \tilde{x}, W = w | X = x)
     \cdot \left[ \sum_y yP(Y = y | X = x, W = w)\right] \\
     &= \sum_y y \sum_w \frac{P(Y = y, X = x, W = w)}{P(X = x, W = w)}  \frac{P(X =
     x, W = w)}{P(X = x)} \\
@@ -159,7 +159,7 @@ The last line is a conditional expectation.
   \end{align*}
 \end{proof}
 \begin{corollary}[Law of total probability]
-  \[\E[Y] = \E[\E[Y | W]]\]
+  \[\ex[Y] = \ex[\ex[Y | W]]\]
 \end{corollary}
 
 \begin{example}
@@ -168,7 +168,7 @@ three children. What is the expected number of boys in households?
 \begin{align*}
   X &= \text{\# of boys in a household} \\
   Y &= \text{\# of children in a household} \\
-  \E[X] &= \E[\E[X | Y]]= 0.3 \cdot 1 \cdot \frac{1}{2} + 0.5 \cdot 2 \cdot
+  \ex[X] &= \ex[\ex[X | Y]]= 0.3 \cdot 1 \cdot \frac{1}{2} + 0.5 \cdot 2 \cdot
   \frac{1}{2} + 0.2 \cdot 3 \cdot \frac{1}{2}
 \end{align*}
 \end{example}
@@ -213,8 +213,8 @@ Limits are weird:
   \infty$, so dominated convergence.} \\
   &= \int \frac{\partial}{\partial \eta} \left[e^{\eta T(x)}\right] h(x) \mu(dx) \\
   &= \int T(x) e^{\eta T(x)} h(x) \mu(dx)  \\
-  &= e^{A(\eta)} \E[T(X)] \\
-  &\Rightarrow \frac{\partial}{\partial \eta} A(\eta) = \E[T(X)]
+  &= e^{A(\eta)} \ex[T(X)] \\
+  &\Rightarrow \frac{\partial}{\partial \eta} A(\eta) = \ex[T(X)]
 \end{align*}
 \end{example}
 
