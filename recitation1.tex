@@ -1,31 +1,49 @@
-%  -*- coding: utf-8 -*-
-% !TEX program = luatex
-\documentclass{article}
-\usepackage{amsthm}
-\usepackage{amssymb}
-\usepackage{mathtools}
-\usepackage[colorlinks]{hyperref}
-%\usepackage{ulem}
-%\usepackage{parsk}
+\documentclass[twoside]{article}
+\usepackage{amsmath,amssymb,amsthm,graphicx}
+\usepackage{epsfig}
+\usepackage[authoryear]{natbib}
 
-\setlength{\parindent}{0pt}
+\input{stat-macros}
 
-\newtheorem*{defn}{Definition}
-\newtheorem*{defn*}{Definition}
-\newtheorem*{prop}{Proposition}
-\newtheorem{thm}{Theorem}[section]
-\newtheorem{cor}[thm]{Corollary}
-\newtheorem{lem}[thm]{Lemma}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
 
-\DeclareMathOperator{\im}{Im}
-\DeclareMathOperator{\Tr}{Tr}
-\allowdisplaybreaks
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf Stat210A:~Theoretical Statistics \hfill Recitation Date: #4} }
+       \vspace{6mm}
+       \hbox to 6.28in { {\Large \hfill #1  \hfill}  }
+       \vspace{6mm}
+       \hbox to 6.28in { {\it Lecturer: #2 \hfill Scribe: #3} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{#1}{#1}
+   \vspace*{4mm}
+}
 
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Z}{\mathbb{Z}}
+% Local Macros Put your favorite macros here that don't appear in
+% stat-macros.tex.  We can eventually incorporate them into
+% stat-macros.tex if they're of general use.
 
 \begin{document}
+
+\lecture{Title}{Tamara Broderick}{K. Jarrod
+Millman \& Richard Shin}{September 3, 2014}
+
 \section{Densities (Radon-Nikodym)}
 We have a plot from the event space to values of a random variable.
 
@@ -38,7 +56,8 @@ event space.
 \nu(X \in B) &= \mu(X^{-1}(B)) = \mu(A)
 \end{align*}
 
-\begin{defn}
+\begin{definition}\label{def:measure}
+%\begin{defn}
   $\mu$ is a measure if
   \begin{itemize}
     \item $\mu(A) \in [0, \infty]$
@@ -46,29 +65,32 @@ event space.
       A_i\right)$ when $A_i$ are disjoint.
     \item For a probability measure: $\mu(X) = 1$
   \end{itemize}
-\end{defn}
+\end{definition}
 
-Examples:
+\begin{example}
 \begin{itemize}
   \item Lebesgue measure
     \[ \mu(A) = \int_{\R^D} \cdots \int \mathbf{1}_A(x) dx_1 \cdots dx_D \]
   \item Counting measure
     \[ \nu(A) = \#(A \cap \Z^D) \]
 \end{itemize}
+\end{example}
 
-\begin{defn}
+\begin{definition}
   If $\mu$, $\nu$ are measures, $\nu$ is absolutely continuous with respect to
   $\mu$ (``$\nu << \mu$") if $\mu(A) = 0 \Rightarrow \nu(A) = 0$.
-\end{defn}
-Example:
+\end{definition}
+
+\begin{example}
 \begin{align*}
   D = 1 &\quad \mu\{1\} = 0 \quad \nu\{1\} = 1 \\
   & \mu(0, 1) = 1 \quad \nu(0, 1) = 0
 \end{align*}
 So the Lebesgue measure and the counting measure are not absolutely continuous
 with respect to each other.
+\end{example}
 
-\begin{thm}[Radon-Nikodym, 1.10]
+\begin{theorem}[Radon-Nikodym, 1.10]
   If 
   \begin{itemize}
     \item $\nu$ a finite measure
@@ -77,13 +99,13 @@ with respect to each other.
   \end{itemize}
   then $\exists$ a non-negative function $f$ (sometimes $\frac{d\nu}{d\mu}$)
   such that \[\nu(A) = \int_A f d\mu = \int_X f \mathbf{1}_A d\mu\]
-\end{thm}
+\end{theorem}
 
 \begin{itemize}
   \item Suppose $\mu << \text{Lebesgue}$. Then $\nu(A) = \int_A p(x) dx$ if $\nu(A) =
 1$, and $p(x)$ is a probability density function.
 
-  \item Suppose $\nu$ is absolutely continuous w.r.t. the counting emasure. Then $\nu(A)
+  \item Suppose $\nu$ is absolutely continuous w.r.t. the counting measure. Then $\nu(A)
 = \sum_{\{m\} \in A} P(m)$ if $\nu(X) = 1$, and $p$ is a "probability mass
 function" (Poisson).
 \end{itemize}
@@ -96,12 +118,13 @@ For $\mu(A)$, we have
    a_i \mathbf{1}_{A_i}
 \end{align*}
 
-\begin{defn}
+\begin{definition}
   The KL divergence is
   \[ D_{KL}(\mu || \nu) = \int_\chi \log \frac{d\mu}{d\nu} d\mu \]
-\end{defn}
+\end{definition}
 
 \section{Conditional probabilities (Tower Property)}
+
 Conditional probabilities are defined as
 \begin{align*}
   P(A | B) &= \frac{P(A \cap B)}{P(B)} 
@@ -119,11 +142,11 @@ For discrete random variables,
 \end{align*}
 The last line is a conditional expectation.
 
-\begin{thm}[Tower property]
+\begin{theorem}[Tower property]
 \begin{align*}
   \E[Y | X] = \E[\E[Y | X, W] | X]
 \end{align*}
-\end{thm}
+\end{theorem}
 \begin{proof}
   Here, $\E[Y | X, W]$ is a function of $X, W$. 
 
@@ -135,10 +158,12 @@ The last line is a conditional expectation.
     &= \sum_y y P(Y = y | X = x)
   \end{align*}
 \end{proof}
-\begin{cor}[Law of total probability]
+\begin{corollary}[Law of total probability]
   \[\E[Y] = \E[\E[Y | W]]\]
-\end{cor}
-Example: 30\% of households have one child, 50\% have two children, and 20\% have
+\end{corollary}
+
+\begin{example}
+30\% of households have one child, 50\% have two children, and 20\% have
 three children. What is the expected number of boys in households?
 \begin{align*}
   X &= \text{\# of boys in a household} \\
@@ -146,8 +171,10 @@ three children. What is the expected number of boys in households?
   \E[X] &= \E[\E[X | Y]]= 0.3 \cdot 1 \cdot \frac{1}{2} + 0.5 \cdot 2 \cdot
   \frac{1}{2} + 0.2 \cdot 3 \cdot \frac{1}{2}
 \end{align*}
+\end{example}
 
 \section{Exchanging things with integration (dom. conv.)}
+
 Our integration wish list:
 \begin{itemize}
   \item $\int_t \int_x f(t, x) \mu(dx) \nu(dt) = \int_x \int_t f(t, x) \nu(dt)
@@ -165,13 +192,13 @@ Limits are weird:
   \lim_{n \rightarrow \infty} \int f_n(x) dx &= 1
 \end{align*}
 
-\begin{thm}[Dominated convergence (section 2.3, theorem 2.5)]
+\begin{theorem}[Dominated convergence (section 2.3, theorem 2.5)]
   If $\exists g$ s.t. \[\forall x, |f_n(x)| \le g(x)\] and \[\int g(x) \mu(dx) <
   \infty,\] then \[\lim_{n \rightarrow \infty} \int f_n(x) \mu(dx) = \int
   \left(\lim_{n \rightarrow \infty} f_n(x) \right) \mu(dx).\]
-\end{thm}
+\end{theorem}
 
-Example from class on Tuesday:
+\begin{example}[from class on Tuesday]
 \begin{align*}
   e^{A(\eta)} &:= \int \exp\{\eta T(x) \} h(x) \mu(dx) \\
   \eta &\in \text{canonical parameter space} \\
@@ -189,19 +216,10 @@ Example from class on Tuesday:
   &= e^{A(\eta)} \E[T(X)] \\
   &\Rightarrow \frac{\partial}{\partial \eta} A(\eta) = \E[T(X)]
 \end{align*}
+\end{example}
+
+
+\bibliographystyle{apalike}
+\bibliography{stat}
+
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
