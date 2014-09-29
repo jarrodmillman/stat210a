@@ -1,0 +1,207 @@
+%  -*- coding: utf-8 -*-
+% !TEX program = luatex
+\documentclass{article}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[colorlinks]{hyperref}
+%\usepackage{ulem}
+%\usepackage{parsk}
+
+\setlength{\parindent}{0pt}
+
+\newtheorem*{defn}{Definition}
+\newtheorem*{defn*}{Definition}
+\newtheorem*{prop}{Proposition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Tr}{Tr}
+\allowdisplaybreaks
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\begin{document}
+\section{Densities (Radon-Nikodym)}
+We have a plot from the event space to values of a random variable.
+
+To compute the probability of the random variable taking on certain values
+(e.g., within the interval $B$), we can measure the size of the corresponding
+event space.
+
+\begin{align*}
+\mu(A = A_1 \cup A_2) \\
+\nu(X \in B) &= \mu(X^{-1}(B)) = \mu(A)
+\end{align*}
+
+\begin{defn}
+  $\mu$ is a measure if
+  \begin{itemize}
+    \item $\mu(A) \in [0, \infty]$
+    \item $\sum_{i=1}^\infty \mu(A_i) = \mu\left(\bigcup_{i=1}^\infty
+      A_i\right)$ when $A_i$ are disjoint.
+    \item For a probability measure: $\mu(X) = 1$
+  \end{itemize}
+\end{defn}
+
+Examples:
+\begin{itemize}
+  \item Lebesgue measure
+    \[ \mu(A) = \int_{\R^D} \cdots \int \mathbf{1}_A(x) dx_1 \cdots dx_D \]
+  \item Counting measure
+    \[ \nu(A) = \#(A \cap \Z^D) \]
+\end{itemize}
+
+\begin{defn}
+  If $\mu$, $\nu$ are measures, $\nu$ is absolutely continuous with respect to
+  $\mu$ (``$\nu << \mu$") if $\mu(A) = 0 \Rightarrow \nu(A) = 0$.
+\end{defn}
+Example:
+\begin{align*}
+  D = 1 &\quad \mu\{1\} = 0 \quad \nu\{1\} = 1 \\
+  & \mu(0, 1) = 1 \quad \nu(0, 1) = 0
+\end{align*}
+So the Lebesgue measure and the counting measure are not absolutely continuous
+with respect to each other.
+
+\begin{thm}[Radon-Nikodym, 1.10]
+  If 
+  \begin{itemize}
+    \item $\nu$ a finite measure
+    \item $\mu$ a measure
+    \item $\nu << \mu$
+  \end{itemize}
+  then $\exists$ a non-negative function $f$ (sometimes $\frac{d\nu}{d\mu}$)
+  such that \[\nu(A) = \int_A f d\mu = \int_X f \mathbf{1}_A d\mu\]
+\end{thm}
+
+\begin{itemize}
+  \item Suppose $\mu << \text{Lebesgue}$. Then $\nu(A) = \int_A p(x) dx$ if $\nu(A) =
+1$, and $p(x)$ is a probability density function.
+
+  \item Suppose $\nu$ is absolutely continuous w.r.t. the counting emasure. Then $\nu(A)
+= \sum_{\{m\} \in A} P(m)$ if $\nu(X) = 1$, and $p$ is a "probability mass
+function" (Poisson).
+\end{itemize}
+
+For $\mu(A)$, we have
+\begin{align*}
+   \int \mathbf{1}_A(x) \mu(dx) &:= \mu(A) \\
+   \int a \mathbf{1}_A(x) \mu(Dx) &:= \int f d\mu,\ f = a \mathbf{1}_A \\
+   \int \sum_{i=1}^n a_i \mathbf{1}_{A_i}(x) \mu(dx) &:= \int f d\mu,\ f = \sum
+   a_i \mathbf{1}_{A_i}
+\end{align*}
+
+\begin{defn}
+  The KL divergence is
+  \[ D_{KL}(\mu || \nu) = \int_\chi \log \frac{d\mu}{d\nu} d\mu \]
+\end{defn}
+
+\section{Conditional probabilities (Tower Property)}
+Conditional probabilities are defined as
+\begin{align*}
+  P(A | B) &= \frac{P(A \cap B)}{P(B)} 
+\end{align*}
+
+For discrete random variables,
+\begin{align*}
+  P(Y = y | X = x) = \frac{P(Y = y, X = x)}{P(X = x)}
+\end{align*}
+
+\begin{align*}
+  P(Y = y) \\
+  \E[f(Y)] &= \sum_y f(y) P(Y = y) \\
+  \E[f(X, Y) | X = x] &= \sum_y f(x, y) P(Y = y | X = x)
+\end{align*}
+The last line is a conditional expectation.
+
+\begin{thm}[Tower property]
+\begin{align*}
+  \E[Y | X] = \E[\E[Y | X, W] | X]
+\end{align*}
+\end{thm}
+\begin{proof}
+  Here, $\E[Y | X, W]$ is a function of $X, W$. 
+
+  \begin{align*}
+    \E[\E[Y | X, W] | X] &= \sum_{\tilde{x}, w} P(X = \tilde{x}, W = w | X = x)
+    \cdot \left[ \sum_y yP(Y = y | X = x, W = w)\right] \\
+    &= \sum_y y \sum_w \frac{P(Y = y, X = x, W = w)}{P(X = x, W = w)}  \frac{P(X =
+    x, W = w)}{P(X = x)} \\
+    &= \sum_y y P(Y = y | X = x)
+  \end{align*}
+\end{proof}
+\begin{cor}[Law of total probability]
+  \[\E[Y] = \E[\E[Y | W]]\]
+\end{cor}
+Example: 30\% of households have one child, 50\% have two children, and 20\% have
+three children. What is the expected number of boys in households?
+\begin{align*}
+  X &= \text{\# of boys in a household} \\
+  Y &= \text{\# of children in a household} \\
+  \E[X] &= \E[\E[X | Y]]= 0.3 \cdot 1 \cdot \frac{1}{2} + 0.5 \cdot 2 \cdot
+  \frac{1}{2} + 0.2 \cdot 3 \cdot \frac{1}{2}
+\end{align*}
+
+\section{Exchanging things with integration (dom. conv.)}
+Our integration wish list:
+\begin{itemize}
+  \item $\int_t \int_x f(t, x) \mu(dx) \nu(dt) = \int_x \int_t f(t, x) \nu(dt)
+    \mu(dx)$, by the Fubini-Tonelli theorem.
+  \item $\lim_{n \rightarrow \infty} \int_x f_n(x) \mu(dx) = \int_x \left[
+    \lim_{n \rightarrow \infty} f_n(x) \right] \mu(dx)$
+  \item $\frac{\partial}{\partial t} \int_x f(t, x) \mu(dx) = \int_x
+    \left[\frac{\partial}{\partial t} f(t, x)\right] \mu(dx)$
+\end{itemize}
+
+Limits are weird:
+\begin{align*}
+  f_n(x) &= \mathbf{1}_{(n, n+1)}(x) \\
+  \lim_{n \rightarrow \infty} f_n(x) &:= 0 \\
+  \lim_{n \rightarrow \infty} \int f_n(x) dx &= 1
+\end{align*}
+
+\begin{thm}[Dominated convergence (section 2.3, theorem 2.5)]
+  If $\exists g$ s.t. \[\forall x, |f_n(x)| \le g(x)\] and \[\int g(x) \mu(dx) <
+  \infty,\] then \[\lim_{n \rightarrow \infty} \int f_n(x) \mu(dx) = \int
+  \left(\lim_{n \rightarrow \infty} f_n(x) \right) \mu(dx).\]
+\end{thm}
+
+Example from class on Tuesday:
+\begin{align*}
+  e^{A(\eta)} &:= \int \exp\{\eta T(x) \} h(x) \mu(dx) \\
+  \eta &\in \text{canonical parameter space} \\
+  \frac{\partial}{\partial \eta} e^{A(\eta)} &= e^{A(\eta)}
+  \frac{\partial}{\partial \eta}A(\eta) \\
+  &= \frac{\partial}{\partial \eta} \int \exp\{\eta T(x) \} h(x) \mu(dx)\\
+  &= \lim_{n \rightarrow \infty} \left[ \int e^{(\eta + c/n)T(x)} h(x) \mu(dx) -
+  \int e^{(\eta + 0)T(x)} h(x) \mu(dx) \right]/ \frac{c}{n} \\
+  &= \lim_{n \rightarrow \infty} \int \underbrace{e^{\eta T(x)} \left[
+  \frac{e^{(c/n)T(x)} - e^{0 \cdot T(x)}}{c/n} \right] h(x)}_{f_n(x)} \mu(dx) \\
+  & \text{Assume $\exists g$ s.t. $|f_n(x)| \le g(x)$ and $\int g(x) \mu(dx) <
+  \infty$, so dominated convergence.} \\
+  &= \int \frac{\partial}{\partial \eta} \left[e^{\eta T(x)}\right] h(x) \mu(dx) \\
+  &= \int T(x) e^{\eta T(x)} h(x) \mu(dx)  \\
+  &= e^{A(\eta)} \E[T(X)] \\
+  &\Rightarrow \frac{\partial}{\partial \eta} A(\eta) = \E[T(X)]
+\end{align*}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
