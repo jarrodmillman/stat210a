@@ -45,6 +45,7 @@
 Millman \& Richard Shin}{September 3, 2014}
 
 \section{Densities (Radon-Nikodym)}
+
 We have a plot from the event space to values of a random variable.
 
 To compute the probability of the random variable taking on certain values
@@ -56,59 +57,72 @@ event space.
 \nu(X \in B) &= \mu(X^{-1}(B)) = \mu(A)
 \end{align*}
 
-\begin{definition}\label{def:measure}
-%\begin{defn}
-  $\mu$ is a measure if
-  \begin{itemize}
-    \item $\mu(A) \in [0, \infty]$
+\begin{definition}\label{def:measure}\citep[Def. 1.4, p.~2]{keener}
+  Let $\mathcal A$ be a $\sigma$-field on a set $\mathcal X$.  A real-valued function
+  $\mu$ on $\mathcal A$ is called a measure if it is non-negative and countably additive:
+  \begin{enumerate}
+    \item  $\mu(A) \in [0, \infty]$ for all $A \in \mathcal A$.
     \item $\sum_{i=1}^\infty \mu(A_i) = \mu\left(\bigcup_{i=1}^\infty
       A_i\right)$ when $A_i$ are disjoint.
-    \item For a probability measure: $\mu(X) = 1$
-  \end{itemize}
+  \end{enumerate}
+  We call the tuple $(\mathcal X, \mathcal A)$ a measurable space and
+  $(\mathcal X, \mathcal A, \mu)$ a measure space.  If $\mu(\mathcal X) = 1$,
+  $\mu$ is called a probability measure (or probability) and $(\mathcal X, \mathcal A, \mu)$
+  a probablity space.
 \end{definition}
 
-\begin{example}
-\begin{itemize}
-  \item Lebesgue measure
-    \[ \mu(A) = \int_{\reals^D} \cdots \int \mathbf{1}_A(x) dx_1 \cdots dx_D \]
-  \item Counting measure
-    \[ \nu(A) = \#(A \cap \integers^D) \]
-\end{itemize}
+In this class, we will mostly deal with the following two measures.
+\begin{example} 
+ If $\mathcal X = \reals^D$, let
+    \[ \mu(A) = \int_{\reals^D} \cdots \int \mathbf{1}_A(x) dx_1 \cdots dx_D. \]
+  Then we call $\mu$ the Lebesgue measure on $\reals^D$.
+\end{example}
+\begin{example} 
+  If $\mathcal X$ is countable, let
+    \[ \nu(A) = \#(A \cap \integers^D). \]
+  Then we call $\mu$ the counting measure on $\mathcal X$.
 \end{example}
 
-\begin{definition}
-  If $\mu$, $\nu$ are measures, $\nu$ is absolutely continuous with respect to
-  $\mu$ (``$\nu << \mu$") if $\mu(A) = 0 \Rightarrow \nu(A) = 0$.
+It will be important to compare two measures.
+
+\begin{definition}\label{def:absolutecontinuity}\citep[Def. 1.9, p.~7]{keener}
+  Let $\mu$ and $\nu$ are be measure on a $\sigma$-field $\mathcal A$ on the
+  set $\mathcal X$. Then we say that $\nu$ is absolutely continuous with respect
+  to $\mu$, written $\nu \ll \mu$, if $\mu(A) = 0 \Rightarrow \nu(A) = 0$.
 \end{definition}
+If $\nu \ll \mu$, we also say that $\mu$ dominates $\nu$.
 
-\begin{example}
-\begin{align*}
-  D = 1 &\quad \mu\{1\} = 0 \quad \nu\{1\} = 1 \\
-  & \mu(0, 1) = 1 \quad \nu(0, 1) = 0
-\end{align*}
-So the Lebesgue measure and the counting measure are not absolutely continuous
-with respect to each other.
+\begin{example}  Let $\mu$ the Lebesgue measure on $\reals$ and $\nu$ the counting
+  measure on $\integers$.  Then
+  \begin{align*}
+    \mu(\{1\}) &= 0 \quad \nu(\{1\}) = 1 \\
+    \mu((0, 1)) &= 1 \quad \nu((0, 1)) = 0
+  \end{align*}
+  Hence the Lebesgue measure and the counting measure are not absolutely continuous
+  with respect to each other.
 \end{example}
 
-\begin{theorem}[Radon-Nikodym, 1.10]
-  If 
-  \begin{itemize}
-    \item $\nu$ a finite measure
-    \item $\mu$ a measure
-    \item $\nu << \mu$
-  \end{itemize}
-  then $\exists$ a non-negative function $f$ (sometimes $\frac{d\nu}{d\mu}$)
-  such that \[\nu(A) = \int_A f d\mu = \int_X f \mathbf{1}_A d\mu\]
+\begin{theorem}[Radon-Nikodym]\citep[Def. 1.10, p.~7]{keener}
+  If a finite measure $\nu$ is absolutely continuous with respect to a
+  $\sigma$-finite measure $\mu$, then there exists an essentially unique\footnote{If $h$ is
+  another non-negative function that satisfies the conditions of the Radon-Nikodym theorem,
+  then $h=f$ a.e. $\mu$.} non-negative function $f$
+  (sometimes denoted $\frac{d\nu}{d\mu}$) such that
+  \[\nu(A) = \int_A f d\mu = \int_X f \mathbf{1}_A d\mu.\]
 \end{theorem}
 
-\begin{itemize}
-  \item Suppose $\mu << \text{Lebesgue}$. Then $\nu(A) = \int_A p(x) dx$ if $\nu(A) =
-1$, and $p(x)$ is a probability density function.
 
-  \item Suppose $\nu$ is absolutely continuous w.r.t. the counting measure. Then $\nu(A)
+
+\begin{example}
+  Suppose $\mu \ll \text{Lebesgue}$. Then $\nu(A) = \int_A p(x) dx$ if $\nu(A) =
+1$, and $p(x)$ is a probability density function.
+\end{example}
+
+\begin{example}
+  Suppose $\nu$ is absolutely continuous w.r.t. the counting measure. Then $\nu(A)
 = \sum_{\{m\} \in A} P(m)$ if $\nu(X) = 1$, and $p$ is a "probability mass
 function" (Poisson).
-\end{itemize}
+\end{example}
 
 For $\mu(A)$, we have
 \begin{align*}
@@ -192,7 +206,7 @@ Limits are weird:
   \lim_{n \rightarrow \infty} \int f_n(x) dx &= 1
 \end{align*}
 
-\begin{theorem}[Dominated convergence (section 2.3, theorem 2.5)]
+\begin{theorem}[Dominated convergence (section 2.3, theorem 2.5)]\citep[Lemma 2.5, p.~51]{keener}
   If $\exists g$ s.t. \[\forall x, |f_n(x)| \le g(x)\] and \[\int g(x) \mu(dx) <
   \infty,\] then \[\lim_{n \rightarrow \infty} \int f_n(x) \mu(dx) = \int
   \left(\lim_{n \rightarrow \infty} f_n(x) \right) \mu(dx).\]

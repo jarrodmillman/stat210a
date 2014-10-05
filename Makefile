@@ -2,7 +2,7 @@ BUILDDIR  = _build
 CODEDIR   = code
 FIGDIR    = fig
 #BINDIR    = ../../bin
-TEX2PDF   := cd $(BUILDDIR) && TEXINPUTS="..:" pdflatex -interaction=batchmode
+TEX2PDF   := cd $(BUILDDIR) && TEXINPUTS="..:" pdflatex #-interaction=batchmode
 BIBTEX    := cd $(BUILDDIR) && bibtex
 
 all: clean header 
