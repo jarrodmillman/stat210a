@@ -46,24 +46,29 @@ Millman \& Richard Shin}{September 3, 2014}
 
 \section{Densities (Radon-Nikodym)}
 
-We have a plot from the event space to values of a random variable.
+Recall that a random variable is a real-valued function on the event space.
+In Figure~\ref{fig:figure1}, we have a two plots from the event space to values
+of a random variable.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=.7\textwidth]{fig/measure-crop.pdf}
-  \caption{Two frequentist risk functions where one is dominated by the other.}
+  \caption{Plots of two random variables.}
   \label{fig:figure1}
 \end{figure}
 
-
 To compute the probability of the random variable taking on certain values
-(e.g., within the interval $B$), we can measure the size of the corresponding
-event space.
+(e.g., $0$ for the random variable in the left-hand figure above or within the
+interval $B$ for the right-hand figure), we can measure the size of the
+corresponding event space.  For example, in the right-hand plot above, we
+have: 
 
 \begin{align*}
-\mu(A = A_1 \cup A_2) \\
-\nu(X \in B) &= \mu(X^{-1}(B)) = \mu(A)
+\nu(X \in B) &= \mu(X^{-1}(B)) = \mu(A = A_1 \cup A_2) = \mu(A)
 \end{align*}
+
+To make this notion more precise, we first define what we mean by "measure
+the size":
 
 \begin{definition}\label{def:measure}\citep[Def. 1.4, p.~2]{keener}
   Let $\mathcal A$ be a $\sigma$-field on a set $\mathcal X$.  A real-valued function
@@ -76,27 +81,31 @@ event space.
   We call the tuple $(\mathcal X, \mathcal A)$ a measurable space and
   $(\mathcal X, \mathcal A, \mu)$ a measure space.  If $\mu(\mathcal X) = 1$,
   $\mu$ is called a probability measure (or probability) and $(\mathcal X, \mathcal A, \mu)$
-  a probablity space.
+  a probablity space.  More commonly, we denote a probablity space by
+  $(\Omega, \mathcal F, P)$ or following the notation in Keener $(\mathcal E, \mathcal B, P)$.
+  Sets $E \subset \mathcal F$ are called events, elements $\omega \in \Omega$
+  are called outcomes, and $P(E)$ is called the probability of $E$.
 \end{definition}
 
 In this class, we will mostly deal with the following two measures.
 \begin{example} 
  If $\mathcal X = \reals^D$, let
     \[ \mu(A) = \int_{\reals^D} \cdots \int \mathbf{1}_A(x) dx_1 \cdots dx_D. \]
-  Then we call $\mu$ the Lebesgue measure on $\reals^D$.
+  Then we call $\mu$ the \emph{Lebesgue measure} on $\reals^D$.
 \end{example}
 \begin{example} 
   If $\mathcal X$ is countable, let
     \[ \nu(A) = \#(A \cap \integers^D). \]
-  Then we call $\mu$ the counting measure on $\mathcal X$.
+  Then we call $\mu$ the \emph{counting measure} on $\mathcal X$.
 \end{example}
 
 It will be important to compare two measures.
 
 \begin{definition}\label{def:absolutecontinuity}\citep[Def. 1.9, p.~7]{keener}
-  Let $\mu$ and $\nu$ are be measure on a $\sigma$-field $\mathcal A$ on the
-  set $\mathcal X$. Then we say that $\nu$ is absolutely continuous with respect
-  to $\mu$, written $\nu \ll \mu$, if $\mu(A) = 0 \Rightarrow \nu(A) = 0$.
+  Let $\mu$ and $\nu$ be measures on a $\sigma$-field $\mathcal A$ of the
+  set $\mathcal X$. Then we say that $\nu$ is \emph{absolutely continuous} with
+  respect to $\mu$, written $\nu \ll \mu$, if
+  $\mu(A) = 0 \Rightarrow \nu(A) = 0$.
 \end{definition}
 If $\nu \ll \mu$, we also say that $\mu$ dominates $\nu$.
 
@@ -111,7 +120,7 @@ If $\nu \ll \mu$, we also say that $\mu$ dominates $\nu$.
 \end{example}
 
 \begin{theorem}[Radon-Nikodym]\citep[Def. 1.10, p.~7]{keener}
-  If a finite measure $\nu$ is absolutely continuous with respect to a
+  If a $\sigma$-finite measure $\nu$ is absolutely continuous with respect to a
   $\sigma$-finite measure $\mu$, then there exists an essentially unique\footnote{If $h$ is
   another non-negative function that satisfies the conditions of the Radon-Nikodym theorem,
   then $h=f$ a.e. $\mu$.} non-negative function $f$
@@ -119,7 +128,11 @@ If $\nu \ll \mu$, we also say that $\mu$ dominates $\nu$.
   \[\nu(A) = \int_A f d\mu = \int_X f \mathbf{1}_A d\mu.\]
 \end{theorem}
 
-We will often call $f$ (or $\frac{d\nu}{d\mu}$) the Radon-Nikodym density (or derivative).
+We will often call $f$ (or $\frac{d\nu}{d\mu}$) the Radon-Nikodym density (or
+derivative).  The use of this notation and language comes from the fact that
+$f$ concerns a change of measure in an integral in a similar way that the
+standard derivative is used in a change of variable in an integral in classical
+calculus. 
 
 \begin{example}
   If $\mu \ll \text{Lebesgue}$, then $\mu(A) = \int_A p(x) dx$.  If $\nu(A) =
@@ -140,22 +153,44 @@ For $\mu(A)$, we have
    a_i \mathbf{1}_{A_i}
 \end{align*}
 
+An important application of the Radon-Nikodym derivative, which we will see
+again later in the course, is in the non-symmetric measure of the information
+lost when using $nu$ to approximate $\mu$.
+
 \begin{definition}
-  The KL divergence is
-  \[ D_{KL}(\mu || \nu) = \int_\chi \log \frac{d\mu}{d\nu} d\mu \]
+  If  $\mu$ to $\nu$ are measures on the same measurable space and
+  $\mu \ll \nu$, then the \emph{Kullback-Leibler divergence} from
+  $\mu$ to $\nu$ is
+  \[ D_{KL}(\mu || \nu) = \int_\chi \log \frac{d\mu}{d\nu} d\mu \].
 \end{definition}
 
 \section{Conditional distributions (Tower Property)}
 
-Conditional probabilities are defined as
-\begin{align*}
-  P(A | B) &= \frac{P(A \cap B)}{P(B)} 
-\end{align*}
+Recall the definition of conditional probabilities from elementary probability
+classes.
 
-For discrete random variables,
-\begin{align*}
-  P(Y = y | X = x) = \frac{P(Y = y, X = x)}{P(X = x)}
-\end{align*}
+\begin{definition}
+  Let $(\Omega, \mathcal F, P)$ be a probability space with events $A$ and $B$
+  such that $P(B) \neq 0$.  Then the conditional probability $P(A|B)$ of $A$
+  given $B$ is defined as 
+  \begin{align*}
+    P(A | B) &= \frac{P(A \cap B)}{P(B)} 
+  \end{align*}
+\end{definition}
+
+This definition is intuitively appealing and corresponds well with the
+frequency interpretation of probability.
+
+\begin{example}
+  For discrete random variables,
+  \begin{align*}
+    P(Y = y | X = x) = \frac{P(Y = y, X = x)}{P(X = x)}
+  \end{align*}
+\end{example}
+
+For our purposes, it is desirable to extend the definition to allow for
+the case that $P(B) = 0$.  For instance, if $B$ is the event that a
+continuous random variable takes a fixed value.
 
 \begin{align*}
   P(Y = y) \\
@@ -195,7 +230,9 @@ three children. What is the expected number of boys in households?
 \end{align*}
 \end{example}
 
-\section{Exchanging things with integration (dom. conv.)}
+\section{Exchanging things with integration (dominated convergence)}
+
+Often we will want to exchange the order of integration and another operation.
 
 Our integration wish list:
 \begin{itemize}
