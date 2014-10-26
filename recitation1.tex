@@ -182,7 +182,7 @@ This definition is intuitively appealing and corresponds well with the
 frequency interpretation of probability.
 
 \begin{example}
-  For discrete random variables,
+  For discrete random variables $X$ and $Y$,
   \begin{align*}
     P(Y = y | X = x) = \frac{P(Y = y, X = x)}{P(X = x)}
   \end{align*}
@@ -190,7 +190,7 @@ frequency interpretation of probability.
 
 For our purposes, it is desirable to extend the definition to allow for
 the case that $P(B) = 0$.  For instance, if $B$ is the event that a
-continuous random variable takes a fixed value.
+continuous random variable takes a fixed value.  
 
 \begin{align*}
   P(Y = y) \\
@@ -308,20 +308,31 @@ past an integral.
 \end{theorem}
 
 \begin{example}[from class on Tuesday]
+Recall that the 1-parameter exponential family in canonical form is given by
 \begin{align*}
-  e^{A(\eta)} &:= \int \exp\{\eta T(x) \} h(x) \mu(dx) \\
-  \eta &\in \text{canonical parameter space} \\
+  p_\eta(x) &= e^{\eta T(x) - A(\eta)} h(x) \quad \text{for }
+  \eta \in \text{canonical parameter space}
 \end{align*}
+where $A(\eta)$ is called the log-partition function (i.e., the
+logarithm of the normalizing constant).  That is,
 \begin{align*}
+  e^{A(\eta)} &:= \int e^{\eta T(x)} h(x) \mu(dx).
+\end{align*}
+Taking the derivative with respect to $\eta$ of the right-hand side yields
+\begin{align}
   \frac{\partial}{\partial \eta} e^{A(\eta)} &= e^{A(\eta)}
-  \frac{\partial}{\partial \eta}A(\eta) \\
-  &= \frac{\partial}{\partial \eta} \int \exp\{\eta T(x) \} h(x) \mu(dx)\\
+    \frac{\partial}{\partial \eta}A(\eta)
+\end{align}
+While taking the derivative with respect to $\eta$ of the left-hand side
+yields
+\begin{align}
+  \frac{\partial}{\partial \eta} \int e^{\eta T(x)} h(x) \mu(dx)
   &= \lim_{n \rightarrow \infty} \left[ \int e^{(\eta + c/n)T(x)} h(x) \mu(dx) -
-  \int e^{(\eta + 0)T(x)} h(x) \mu(dx) \right]/ \frac{c}{n} \\
+  \int e^{(\eta + 0)T(x)} h(x) \mu(dx) \right]/ \frac{c}{n} \notag\\
   &= \lim_{n \rightarrow \infty} \int \underbrace{e^{\eta T(x)} \left[
-  \frac{e^{(c/n)T(x)} - e^{0 \cdot T(x)}}{c/n} \right] h(x)}_{f_n(x)} \mu(dx) \\
-\end{align*}
-Assume $\exists g$ s.t. $|f_n(x)| \le g(x)$ and
+  \frac{e^{(c/n)T(x)} - e^{0 \cdot T(x)}}{c/n} \right] h(x)}_{f_n(x)} \mu(dx)
+\end{align}
+Assume there exists a $g$ such that $|f_n(x)| \le g(x)$ and
 $\int g(x) \mu(dx) < \infty$, so dominated convergence.
 \begin{align*}
   &= \int \frac{\partial}{\partial \eta} \left[e^{\eta T(x)}\right] h(x) \mu(dx) \\
