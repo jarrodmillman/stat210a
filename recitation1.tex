@@ -68,7 +68,7 @@ have:
 \end{align*}
 
 To make this notion more precise, we first define what we mean by ``measure
-the size":
+the size".
 
 \begin{definition}\label{def:measure}\citep[Def. 1.4, p.~2]{keener}
   Let $\mathcal A$ be a $\sigma$-field on a set $\mathcal X$.  A real-valued function
@@ -83,7 +83,7 @@ the size":
   $\mu$ is called a probability measure (or probability) and $(\mathcal X, \mathcal A, \mu)$
   a probability space.  More commonly, we denote a probability space by
   $(\Omega, \mathcal F, P)$ or following the notation in Keener $(\mathcal E, \mathcal B, P)$.
-  Sets $E \subset \mathcal F$ are called events, elements $\omega \in \Omega$
+  Sets $E \in \mathcal F$ are called events, elements $\omega \in \Omega$
   are called outcomes, and $P(E)$ is called the probability of $E$.
 \end{definition}
 
@@ -105,11 +105,11 @@ It will be important to compare two measures.
   Let $\mu$ and $\nu$ be measures on a $\sigma$-field $\mathcal A$ of the
   set $\mathcal X$. Then we say that $\nu$ is \emph{absolutely continuous} with
   respect to $\mu$, written $\nu \ll \mu$, if
-  $\mu(A) = 0 \Rightarrow \nu(A) = 0$.
+  $\mu(A) = 0$ implies $\nu(A) = 0$.
 \end{definition}
 If $\nu \ll \mu$, we also say that $\mu$ dominates $\nu$.
 
-\begin{example}  Let $\mu$ the Lebesgue measure on $\reals$ and $\nu$ the counting
+\begin{example}  Let $\mu$ be the Lebesgue measure on $\reals$ and $\nu$ the counting
   measure on $\integers$.  Then
   \begin{align*}
     \mu(\{1\}) &= 0 \quad \nu(\{1\}) = 1 \\
@@ -155,13 +155,13 @@ For $\mu(A)$, we have
 
 An important application of the Radon-Nikodym derivative, which we will see
 again later in the course, is in the non-symmetric measure of the information
-lost when using $nu$ to approximate $\mu$.
+lost when using $\nu$ to approximate $\mu$.
 
 \begin{definition}
   If  $\mu$ to $\nu$ are measures on the same measurable space and
   $\mu \ll \nu$, then the \emph{Kullback-Leibler divergence} from
   $\mu$ to $\nu$ is
-  \[ D_{KL}(\mu || \nu) = \int_\chi \log \frac{d\mu}{d\nu} d\mu \].
+  \[ D_{KL}(\mu || \nu) = \int_\chi \log \frac{d\mu}{d\nu} d\mu. \]
 \end{definition}
 
 \section{Conditional distributions (Tower Property)}
