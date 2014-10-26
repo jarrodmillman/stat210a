@@ -71,7 +71,7 @@ To make this notion more precise, we first define what we mean by ``measure
 the size".
 
 \begin{definition}\label{def:measure}\citep[Def. 1.4, p.~2]{keener}
-  Let $\mathcal A$ be a $\sigma$-field on a set $\mathcal X$.  A real-valued function
+  Let $\mathcal A$ be a $\sigma$-field of a set $\mathcal X$.  A real-valued function
   $\mu$ on $\mathcal A$ is called a measure if it is non-negative and countably additive:
   \begin{enumerate}
     \item  $\mu(A) \in [0, \infty]$ for all $A \in \mathcal A$.
@@ -131,13 +131,14 @@ If $\nu \ll \mu$, we also say that $\mu$ dominates $\nu$.
 \end{theorem}
 
 We will often call $f$ (or $\frac{d\nu}{d\mu}$) the Radon-Nikodym density (or
-derivative).  The use of this notation and language comes from the fact that
+derivative).  The use of this second notation and language is due to the fact that
 $f$ concerns a change of measure in an integral in a similar way that the
 standard derivative is used in a change of variable in an integral in classical
 calculus. 
 
 \begin{example}
-  If $\mu \ll \text{Lebesgue}$, then $\mu(A) = \int_A p(x) dx$.  If $\nu(A) =
+  If $\mu$ is absolutely continuous with respect to the Lebesgue measure,
+  then $\mu(A) = \int_A p(x) dx$.  If $\nu(A) =
   1$, then $p(x)$ is called a probability density function.
 \end{example}
 
@@ -156,11 +157,12 @@ For $\mu(A)$, we have
 \end{align*}
 
 An important application of the Radon-Nikodym derivative, which we will see
-again later in the course, is in the non-symmetric measure of the information
+again later in the course, is the non-symmetric measure of the information
 lost when using $\nu$ to approximate $\mu$.
 
 \begin{definition}
-  If  $\mu$ to $\nu$ are measures on the same measurable space and
+  If  $\mu$ to $\nu$ are measures on the same measurable space
+  $(\mathcal X, \mathcal A)$ and
   $\mu \ll \nu$, then the \emph{Kullback-Leibler divergence} from
   $\mu$ to $\nu$ is
   \[ D_{KL}(\mu || \nu) = \int_\chi \log \frac{d\mu}{d\nu} d\mu. \]
@@ -168,15 +170,14 @@ lost when using $\nu$ to approximate $\mu$.
 
 \section{Conditional distributions (Tower Property)}
 
-Recall the definition of conditional probabilities from elementary probability
-classes.
+Recall the definition of conditional probabilities from elementary probability.
 
 \begin{definition}
   Let $(\Omega, \mathcal F, P)$ be a probability space with events $A$ and $B$
   such that $P(B) \neq 0$.  Then the conditional probability $P(A|B)$ of $A$
   given $B$ is defined as 
   \begin{align*}
-    P(A | B) &= \frac{P(A \cap B)}{P(B)} 
+    P(A | B) &= \frac{P(A \cap B)}{P(B)}. 
   \end{align*}
 \end{definition}
 
@@ -186,7 +187,7 @@ frequency interpretation of probability.
 \begin{example}
   For discrete random variables $X$ and $Y$,
   \begin{align*}
-    P(Y = y | X = x) = \frac{P(Y = y, X = x)}{P(X = x)}
+    P(Y = y | X = x) = \frac{P(Y = y, X = x)}{P(X = x)}.
   \end{align*}
 \end{example}
 
