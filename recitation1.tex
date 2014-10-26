@@ -121,11 +121,13 @@ If $\nu \ll \mu$, we also say that $\mu$ dominates $\nu$.
 
 \begin{theorem}[Radon-Nikodym]\citep[Def. 1.10, p.~7]{keener}
   If a $\sigma$-finite measure $\nu$ is absolutely continuous with respect to a
-  $\sigma$-finite measure $\mu$, then there exists an essentially unique\footnote{If $h$ is
+  $\sigma$-finite measure $\mu$ on $(\mathcal X, \mathcal A)$, then there exists
+  an essentially unique\footnote{If $h$ is
   another non-negative function that satisfies the conditions of the Radon-Nikodym theorem,
   then $h=f$ a.e. $\mu$.} non-negative function $f$
   (sometimes denoted $\frac{d\nu}{d\mu}$) such that
-  \[\nu(A) = \int_A f d\mu = \int_X f \mathbf{1}_A d\mu.\]
+  \[\nu(A) = \int_A f d\mu = \int_{\mathcal X} f \mathbf{1}_A d\mu\]
+  for all $A \in \mathcal A$.
 \end{theorem}
 
 We will often call $f$ (or $\frac{d\nu}{d\mu}$) the Radon-Nikodym density (or
@@ -141,7 +143,7 @@ calculus.
 
 \begin{example}
   If $\nu$ is absolutely continuous with respect to the counting measure. Then $\nu(A)
-  = \sum_{\{m\} \in A} P(m)$.  If $\nu(X) = 1$, then $p$ is a ``probability mass
+  = \sum_{m \in A} P(m)$.  If $\nu(X) = 1$, then $P$ is a ``probability mass
   function" (e.g., Poisson).
 \end{example}
 
@@ -238,17 +240,17 @@ integration and the following operations:
 \begin{enumerate}
   \item other integrals
     \begin{align*}
-      \int_t \int_x f(t, x) \mu(dx) \nu(dt) = \int_x \int_t f(t, x) \nu(dt) \mu(dx),
+      \int_{\mathcal Y} \int_{\mathcal X} f d\mu d\nu = \int_{\mathcal X} \int_{\mathcal Y} f d\nu d\mu,
     \end{align*}
   \item limits
     \begin{align*}
-      \lim_{n \rightarrow \infty} \int_x f_n(x) \mu(dx) = \int_x \left[
-    \lim_{n \rightarrow \infty} f_n(x) \right] \mu(dx),
+      \lim_{n \rightarrow \infty} \int_{\mathcal X} f_n d\mu = \int_{\mathcal X} \left[
+    \lim_{n \rightarrow \infty} f_n \right] d\mu,
     \end{align*}
   \item and derivatives
     \begin{align*}
-      \frac{\partial}{\partial t} \int_x f(t, x) \mu(dx) = \int_x
-    \left[\frac{\partial}{\partial t} f(t, x)\right] \mu(dx).
+      \frac{d}{dy} \int_{\mathcal X} f(x, y) d\mu(x) = \int_{\mathcal X}
+    \left[\frac{\partial}{\partial y} f(x, y)\right] d\mu(x).
     \end{align*}
 \end{enumerate}
 
@@ -269,8 +271,8 @@ $\mathcal X \times \mathcal Y$.
   be measure spaces.  If either (Tonelli's condition) $f \geq 0$ or (Fubini's
   condition) $\int |f| d(\mu \times \nu) < \infty$  hold, then
   \begin{align*}
-    \int_{X\times Y} f d(\mu \times \nu) &= \int_Y \int_X f(x, y) d\mu(x) d\nu(y) \\
-    &= \int_X \int_Y f(x, y) d\nu(y) d\mu(x).
+    \int_{\mathcal X \times \mathcal Y} f d(\mu \times \nu) &= \int_{\mathcal Y} \int_{\mathcal X} f(x, y) d\mu(x) d\nu(y) \\
+    &= \int_{\mathcal X} \int_{\mathcal Y} f(x, y) d\nu(y) d\mu(x).
   \end{align*}
 \end{theorem}
 
@@ -302,9 +304,9 @@ past an integral.
   and $\lim_{n \rightarrow \infty} f_n(x) = f(x)$ for a.e. $x$ under $\mu$,
   then
   \begin{align*}
-    \lim_{n \rightarrow \infty} \int f_n(x) \mu(dx) &= \int
-      \left(\lim_{n \rightarrow \infty} f_n(x) \right) \mu(dx) \\
-       &= \int f(x) \mu(dx) \\
+    \lim_{n \rightarrow \infty} \int f_n(x) d\mu(x) &= \int
+      \left(\lim_{n \rightarrow \infty} f_n(x) \right) d\mu(x) \\
+       &= \int f(x) d\mu(x) \\
        &= \int f d\mu.
   \end{align*} 
 \end{theorem}
@@ -318,7 +320,7 @@ Recall that the 1-parameter exponential family in canonical form is given by
 where $A(\eta)$ is called the log-partition function (i.e., the
 logarithm of the normalizing constant).  That is,
 \begin{align*}
-  e^{A(\eta)} &:= \int e^{\eta T(x)} h(x) \mu(dx).
+  e^{A(\eta)} &:= \int e^{\eta T(x)} h(x) d\mu(x).
 \end{align*}
 Taking the derivative with respect to $\eta$ of the right-hand side yields
 \begin{align}\label{eq:logpart1}
@@ -328,21 +330,21 @@ Taking the derivative with respect to $\eta$ of the right-hand side yields
 While taking the derivative with respect to $\eta$ of the left-hand side
 yields
 \begin{align}
-  \frac{\partial}{\partial \eta} \int e^{\eta T(x)} h(x) \mu(dx)
-  &= \lim_{n \rightarrow \infty} \left[ \int e^{(\eta + c/n)T(x)} h(x) \mu(dx) -
-  \int e^{(\eta + 0)T(x)} h(x) \mu(dx) \right]/ \frac{c}{n} \notag\\
+  \frac{\partial}{\partial \eta} \int e^{\eta T(x)} h(x) d\mu(x)
+  &= \lim_{n \rightarrow \infty} \left[ \int e^{(\eta + c/n)T(x)} h(x) d\mu(x) -
+  \int e^{(\eta + 0)T(x)} h(x) d\mu(x) \right]/ \frac{c}{n} \notag\\
   &= \lim_{n \rightarrow \infty} \int \underbrace{e^{\eta T(x)} \left[
-  \frac{e^{(c/n)T(x)} - e^{0 \cdot T(x)}}{c/n} \right] h(x)}_{f_n(x)} \mu(dx) \label{eq:logpart2}
+  \frac{e^{(c/n)T(x)} - e^{0 \cdot T(x)}}{c/n} \right] h(x)}_{f_n(x)} d\mu(x) \label{eq:logpart2}
 \end{align}
 Assume there exists a $g$ such that $|f_n(x)| \le g(x)$ and
 $\int g(x) \mu(dx) < \infty$.  So by the dominated convergence theorem, we
 can move the limit under the integral in \eqref{eq:logpart2}.
 \begin{align}
-   \frac{\partial}{\partial \eta} \int e^{\eta T(x)} h(x) \mu(dx)
+   \frac{\partial}{\partial \eta} \int e^{\eta T(x)} h(x) d\mu(x)
   &=  \int \lim_{n \rightarrow \infty}\underbrace{e^{\eta T(x)} \left[
-  \frac{e^{(c/n)T(x)} - e^{0 \cdot T(x)}}{c/n} \right] h(x)}_{f_n(x)} \mu(dx) \notag\\
-  &= \int \frac{\partial}{\partial \eta} \left[e^{\eta T(x)} h(x)\right]  \mu(dx) \notag\\
-  &= \int T(x) e^{\eta T(x)} h(x) \mu(dx)  \notag\\
+  \frac{e^{(c/n)T(x)} - e^{0 \cdot T(x)}}{c/n} \right] h(x)}_{f_n(x)} d\mu(x) \notag\\
+  &= \int \frac{\partial}{\partial \eta} \left[e^{\eta T(x)} h(x)\right]  d\mu(x) \notag\\
+  &= \int T(x) e^{\eta T(x)} h(x) d\mu(x)  \notag\\
   &= e^{A(\eta)} \ex[T(X)]. \label{eq:logpart3}
 \end{align}
 Hence by \eqref{eq:logpart1} and \eqref{eq:logpart3}, we conclude
