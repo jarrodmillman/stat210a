@@ -67,7 +67,7 @@ have:
 \nu(X \in B) &= \mu(X^{-1}(B)) = \mu(A = A_1 \cup A_2) = \mu(A)
 \end{align*}
 
-To make this notion more precise, we first define what we mean by "measure
+To make this notion more precise, we first define what we mean by ``measure
 the size":
 
 \begin{definition}\label{def:measure}\citep[Def. 1.4, p.~2]{keener}
@@ -230,26 +230,71 @@ three children. What is the expected number of boys in households?
 \end{align*}
 \end{example}
 
-\section{Exchanging things with integration (dominated convergence)}
+\section{Exchanging things with integration (Dominated Convergence)}
 
 Often we will want to exchange the order of integration and another operation.
+In particular, we will be interested in exchanging the order of operations with
+integration and the following operations:
+\begin{enumerate}
+  \item other integrals
+    \begin{align*}
+      \int_t \int_x f(t, x) \mu(dx) \nu(dt) = \int_x \int_t f(t, x) \nu(dt) \mu(dx),
+    \end{align*}
+  \item limits
+    \begin{align*}
+      \lim_{n \rightarrow \infty} \int_x f_n(x) \mu(dx) = \int_x \left[
+    \lim_{n \rightarrow \infty} f_n(x) \right] \mu(dx),
+    \end{align*}
+  \item and derivatives
+    \begin{align*}
+      \frac{\partial}{\partial t} \int_x f(t, x) \mu(dx) = \int_x
+    \left[\frac{\partial}{\partial t} f(t, x)\right] \mu(dx).
+    \end{align*}
+\end{enumerate}
 
-Our integration wish list:
-\begin{itemize}
-  \item $\int_t \int_x f(t, x) \mu(dx) \nu(dt) = \int_x \int_t f(t, x) \nu(dt)
-    \mu(dx)$, by the Fubini-Tonelli theorem.
-  \item $\lim_{n \rightarrow \infty} \int_x f_n(x) \mu(dx) = \int_x \left[
-    \lim_{n \rightarrow \infty} f_n(x) \right] \mu(dx)$
-  \item $\frac{\partial}{\partial t} \int_x f(t, x) \mu(dx) = \int_x
-    \left[\frac{\partial}{\partial t} f(t, x)\right] \mu(dx)$
-\end{itemize}
+Before the stating the conditions need for the exchanging the order of integration,
+we need the following definition.
+\begin{definition} Let $(\mathcal X, \mathcal A, \mu)$ and $(\mathcal Y, \mathcal B, \nu)$
+  be measure spaces.  Then the unique \emph{product measure} $\mu \times \nu$ on
+  the measurable space $(\mathcal X \times \mathcal Y, \mathcal A \vee \mathcal B)$ satisfies
+  \begin{align*}
+    (\mu \times \nu)(A\times B) &= \mu(A)\nu(B)
+  \end{align*}
+  for all $A \in  \mathcal A$ and $B \in \mathcal B$.
+\end{definition}
+Note that $\mathcal A \vee \mathcal B$ is taken to be the smallest $\sigma$-field on
+$\mathcal X \times \mathcal Y$.
+\begin{theorem}[Fubini-Tonelli]\citep[Theorem 1.7, p.~13]{keener}
+  Let $(\mathcal X, \mathcal A, \mu)$ and $(\mathcal Y, \mathcal B, \nu)$
+  be measure spaces.  If either (Tonelli's condition) $f \geq 0$ or (Fubini's
+  condition) $\int |f| d(\mu \times \nu) < \infty$  hold, then
+  \begin{align*}
+    \int_{X\times Y} f d(\mu \times \nu) &= \int_Y \int_X f(x, y) d\mu(x) d\nu(y) \\
+    &= \int_X \int_Y f(x, y) d\nu(y) d\mu(x).
+  \end{align*}
+\end{theorem}
 
-Limits are weird:
+Moving the limit under the integral is primarily of interest because if we can
+do that, we can move differentiation under the integral since it is a special
+case of a limit.  If the domain of integration is finite, then we can exchange
+differentiation with the integral by Leibniz' rule.  However, when the domain
+of integration isn't finite things become more complicated as illustrated by
+the following example.
+
+\begin{example}
+Consider the sequence of functions $f_n(x) = \mathbf{1}_{(n, n+1)}(x)$ for all
+$x \in \reals$.  Then
 \begin{align*}
-  f_n(x) &= \mathbf{1}_{(n, n+1)}(x) \\
-  \lim_{n \rightarrow \infty} f_n(x) &:= 0 \\
-  \lim_{n \rightarrow \infty} \int f_n(x) dx &= 1
+  \lim_{n \rightarrow \infty} f_n(x) &= 0 \quad \text{for all $x$}.
 \end{align*}
+But
+\begin{align*}
+  \lim_{n \rightarrow \infty} \int f_n(x) dx &= 1.
+\end{align*}
+\end{example}
+
+The following theorem gives conditions under which we can move such a limit
+past an integral.
 
 \begin{theorem}[Dominated convergence]\citep[Theorem 2.5, p.~29]{keener}
   Let ${f_n}$ be a sequence of real-valued measurable functions on a
@@ -269,6 +314,8 @@ Limits are weird:
 \begin{align*}
   e^{A(\eta)} &:= \int \exp\{\eta T(x) \} h(x) \mu(dx) \\
   \eta &\in \text{canonical parameter space} \\
+\end{align*}
+\begin{align*}
   \frac{\partial}{\partial \eta} e^{A(\eta)} &= e^{A(\eta)}
   \frac{\partial}{\partial \eta}A(\eta) \\
   &= \frac{\partial}{\partial \eta} \int \exp\{\eta T(x) \} h(x) \mu(dx)\\
@@ -276,8 +323,10 @@ Limits are weird:
   \int e^{(\eta + 0)T(x)} h(x) \mu(dx) \right]/ \frac{c}{n} \\
   &= \lim_{n \rightarrow \infty} \int \underbrace{e^{\eta T(x)} \left[
   \frac{e^{(c/n)T(x)} - e^{0 \cdot T(x)}}{c/n} \right] h(x)}_{f_n(x)} \mu(dx) \\
-  & \text{Assume $\exists g$ s.t. $|f_n(x)| \le g(x)$ and $\int g(x) \mu(dx) <
-  \infty$, so dominated convergence.} \\
+\end{align*}
+Assume $\exists g$ s.t. $|f_n(x)| \le g(x)$ and
+$\int g(x) \mu(dx) < \infty$, so dominated convergence.
+\begin{align*}
   &= \int \frac{\partial}{\partial \eta} \left[e^{\eta T(x)}\right] h(x) \mu(dx) \\
   &= \int T(x) e^{\eta T(x)} h(x) \mu(dx)  \\
   &= e^{A(\eta)} \ex[T(X)] \\
