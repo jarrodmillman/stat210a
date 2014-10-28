@@ -115,8 +115,8 @@ If $\nu \ll \mu$, we also say that $\mu$ dominates $\nu$.
     \mu(\{1\}) &= 0 \quad \nu(\{1\}) = 1 \\
     \mu((0, 1)) &= 1 \quad \nu((0, 1)) = 0
   \end{align*}
-  Hence the Lebesgue measure and the counting measure are not absolutely continuous
-  with respect to each other.
+  Hence neither the Lebesgue measure nor the counting measure is absolutely continuous
+  with respect to the other.
 \end{example}
 
 \begin{theorem}[Radon-Nikodym]\citep[Def. 1.10, p.~7]{keener}
@@ -255,7 +255,7 @@ integration and the following operations:
     \end{align*}
 \end{enumerate}
 
-Before the stating the conditions need for the exchanging the order of integration,
+Before stating the conditions need for the exchanging the order of integration,
 we need the following definition.
 \begin{definition} Let $(\mathcal X, \mathcal A, \mu)$ and $(\mathcal Y, \mathcal B, \nu)$
   be measure spaces.  Then the unique \emph{product measure} $\mu \times \nu$ on
@@ -342,7 +342,7 @@ yields
   \frac{e^{(c/n)T(x)} - e^{0 \cdot T(x)}}{c/n} \right] h(x)}_{f_n(x)} d\mu(x) \label{eq:logpart2}
 \end{align}
 Assume there exists a $g$ such that $|f_n(x)| \le g(x)$ and
-$\int g(x) \mu(dx) < \infty$.  So by the dominated convergence theorem, we
+$\int g(x) \mu(dx) < \infty$.  Then by the dominated convergence theorem, we
 can move the limit under the integral in \eqref{eq:logpart2}.
 \begin{align}
    \frac{\partial}{\partial \eta} \int e^{\eta T(x)} h(x) d\mu(x)
@@ -352,7 +352,7 @@ can move the limit under the integral in \eqref{eq:logpart2}.
   &= \int T(x) e^{\eta T(x)} h(x) d\mu(x)  \notag\\
   &= e^{A(\eta)} \ex[T(X)]. \label{eq:logpart3}
 \end{align}
-Hence by \eqref{eq:logpart1} and \eqref{eq:logpart3}, we conclude
+Combining \eqref{eq:logpart1} and \eqref{eq:logpart3}, we conclude
 \begin{align*}
 \frac{\partial}{\partial \eta} A(\eta) = \ex[T(X)].
 \end{align*}
