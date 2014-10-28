@@ -1,10 +1,11 @@
 BUILDDIR  = _build
 CODEDIR   = code
 FIGDIR    = _fig
-TEX2PDF   := cd $(BUILDDIR) && TEXINPUTS="..:" pdflatex -interaction=batchmode
+STATIC    = _static
+TEX2PDF   := cd $(BUILDDIR) && TEXINPUTS="../$(STATIC):" pdflatex -interaction=batchmode
 BIBTEX    := cd $(BUILDDIR) && bibtex
 
-all: clean header 
+all: clean lecture1 recitation1 
 
 clean:
 	rm -rf $(BUILDDIR)/* $(CODEDIR)/*pdf $(CODEDIR)/doc_data.txt $(FIGDIR)
@@ -19,20 +20,22 @@ figs: $(FIGDIR)
 	mv $(CODEDIR)/risk*-crop.pdf $(FIGDIR)/.
 
 $(BUILDDIR):
-	mkdir -p $@
+	mkdir -p $(@)
 
 $(FIGDIR):
-	mkdir -p $@
+	mkdir -p $(@)
 
-$(BUILDDIR)/%.pdf: %.tex
-	($(TEX2PDF) $(<F) 1>/dev/null)
-
-%: %.tex $(BUILDDIR) figs
+%.pdf: %.tex $(BUILDDIR) $(FIGDIR)
 	cp $(<F) $(BUILDDIR)/.
 	cp stat.bib $(BUILDDIR)/.
+	cp $(STATIC)/*pdf $(FIGDIR)/.
 	cp -a $(FIGDIR) $(BUILDDIR)/.
 	($(TEX2PDF) $(<F))
-	($(BIBTEX) $(@))
+	($(BIBTEX) $(*))
 	($(TEX2PDF) $(<F))
 	($(TEX2PDF) $(<F))
-	cp $(BUILDDIR)/$(@).pdf $(@).pdf 
+	cp $(BUILDDIR)/$(@) $(@)
+
+lecture1: figs lecture1.pdf
+
+recitation1: recitation1.pdf

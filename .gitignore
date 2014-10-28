@@ -2,8 +2,8 @@ Rplots.pdf
 code/*pdf
 code/doc_data.txt
 _build
-lecture1.pdf
-example.pdf
+_fig
+*pdf
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
