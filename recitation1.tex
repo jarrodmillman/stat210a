@@ -35,6 +35,8 @@
    \vspace*{4mm}
 }
 
+\newcommand{\defeq}{\buildrel \text{d{}ef}\over =}
+
 % Local Macros Put your favorite macros here that don't appear in
 % stat-macros.tex.  We can eventually incorporate them into
 % stat-macros.tex if they're of general use.
@@ -97,7 +99,7 @@ spaces.\footnote{Note that we allow $(\mathcal X, \mathcal A)$ and
 $(\mathcal E, \mathcal B)$ to be identical.}  A function $f$ is
 \emph{measurable} if
 \begin{align*}
-f^{-1}(B) \buildrel \text{d{}ef}\over = \{ x\in \mathcal X |\; f(x) \in B \} \in \mathcal A
+f^{-1}(B) \defeq \{ x\in \mathcal X |\; f(x) \in B \} \in \mathcal A
 \end{align*}
 for every $B \in  \mathcal B$.
 \end{definition}
@@ -112,7 +114,7 @@ is called a \emph{random variable}.
 For each random variable $X$ of a probability space $(\mathcal E, \mathcal B, P)$,
 the induced probability measure $P_X$ given by
 \begin{align*}
-P_X(A) = P({e \in \mathcal E: X(e) \in A}) 
+P_X(A) = P(\{e \in \mathcal E: X(e) \in A\}) 
 \end{align*}
 for all Borel sets $A \in  \mathcal A$ is called the \emph{distribution} of $X$.
 
@@ -325,9 +327,9 @@ can move differentiation under the integral since it is a special case of a
 limit.  If the domain of integration is finite and the function being
 integrated and its partial derivative are continuous, then we can safely move
 the limit under the integral.  This in turn means that we can exchange
-differentiation with the integral (this is known as Leibniz' rule).  However,
-when the domain of integration is not finite the situation becomes more
-complicated as illustrated by the following example.
+differentiation with the integral (this is known as Leibniz integral rule).
+However, when the domain of integration is not finite the situation becomes
+more complicated as illustrated by the following example.
 
 \begin{example}
 Consider the sequence of functions $f_n(x) = \mathbf{1}_{(n, n+1)}(x)$ for all
@@ -356,11 +358,12 @@ past an integral.
 \end{theorem}
 
 In other words, the key property needed for moving the limit under the integral
-is a dominating function with a finite integral.  This ensures that the integral
-can't behave too badly.
+is a dominating function with a finite integral.  This ensures that the
+integral can't behave too badly.
 
-\begin{example}[from class on Tuesday]
-Recall that the 1-parameter exponential family in canonical form is given by
+\begin{example}[1-parameter exponential family]\citep[p.~29]{keener}
+Recall from class on Tuesday that the 1-parameter exponential family in
+canonical form is given by
 \begin{align*}
   p_\eta(x) &= e^{\eta T(x) - A(\eta)} h(x) \quad \text{for }
   \eta \in \text{canonical parameter space}
@@ -368,7 +371,7 @@ Recall that the 1-parameter exponential family in canonical form is given by
 where $A(\eta)$ is called the log-partition function (i.e., the
 logarithm of the normalizing constant).  That is,
 \begin{align*}
-  e^{A(\eta)} &:= \int e^{\eta T(x)} h(x) d\mu(x).
+  e^{A(\eta)} &\defeq \int e^{\eta T(x)} h(x) d\mu(x).
 \end{align*}
 Taking the derivative with respect to $\eta$ of the right-hand side yields
 \begin{align}\label{eq:logpart1}
@@ -384,9 +387,15 @@ yields
   &= \lim_{n \rightarrow \infty} \int \underbrace{e^{\eta T(x)} \left[
   \frac{e^{(c/n)T(x)} - e^{0 \cdot T(x)}}{c/n} \right] h(x)}_{f_n(x)} d\mu(x) \label{eq:logpart2}
 \end{align}
-Assume there exists a $g$ such that $|f_n(x)| \le g(x)$ and
-$\int g(x) \mu(dx) < \infty$.  Then by the dominated convergence theorem, we
-can move the limit under the integral in \eqref{eq:logpart2}.
+If we can find a dominating function $g$ such that $|f_n(x)| \le g(x)$ and
+$\int g(x) \mu(dx) < \infty$, then by the dominated convergence theorem we
+can move the limit under the integral in \eqref{eq:logpart2}. At the end of
+section $2.3$ in Keener (for the details please refer to the text), we find
+such a function
+\begin{align*}
+g(x) \defeq \frac{1}{c} \left(e^{2cT(x)} + e^{-2cT(x)} \right)h(x)
+\end{align*}
+So by dominated convergence, we have
 \begin{align}
    \frac{\partial}{\partial \eta} \int e^{\eta T(x)} h(x) d\mu(x)
   &=  \int \lim_{n \rightarrow \infty}\underbrace{e^{\eta T(x)} \left[
