@@ -71,21 +71,51 @@ To make this notion more precise, we first define what we mean by ``measure
 the size".
 
 \begin{definition}\label{def:measure}\citep[Def. 1.4, p.~2]{keener}
-  Let $\mathcal A$ be a $\sigma$-field of a set $\mathcal X$.  A real-valued function
-  $\mu$ on $\mathcal A$ is called a measure if it is non-negative and countably additive:
+  Let $\mathcal A$ be a $\sigma$-field of a set $\mathcal X$.  A real-valued
+  function $\mu$ on $\mathcal A$ is called a \emph{measure} if it is
+  non-negative and countably additive:
   \begin{enumerate}
     \item  $\mu(A) \in [0, \infty]$ for all $A \in \mathcal A$.
     \item $\sum_{i=1}^\infty \mu(A_i) = \mu\left(\bigcup_{i=1}^\infty
       A_i\right)$ when $A_i$ are disjoint.
   \end{enumerate}
-  We call the tuple $(\mathcal X, \mathcal A)$ a measurable space and
-  $(\mathcal X, \mathcal A, \mu)$ a measure space.  If $\mu(\mathcal X) = 1$,
-  $\mu$ is called a probability measure (or probability) and $(\mathcal X, \mathcal A, \mu)$
-  a probability space.  More commonly, we denote a probability space by
-  $(\Omega, \mathcal F, P)$ or following the notation in Keener $(\mathcal E, \mathcal B, P)$.
-  Sets $E \in \mathcal F$ are called events, elements $\omega \in \Omega$
-  are called outcomes, and $P(E)$ is called the probability of $E$.
 \end{definition}
+
+We call the tuple $(\mathcal X, \mathcal A)$ a \emph{measurable space} and
+$(\mathcal X, \mathcal A, \mu)$ a \emph{measure space}.  If
+$\mu(\mathcal X) = 1$, $\mu$ is called a \emph{probability measure} (or
+\emph{probability}) and $(\mathcal X, \mathcal A, \mu)$
+a \emph{probability space}.  More commonly, we denote a probability space by
+$(\Omega, \mathcal F, P)$ or following the notation in Keener
+$(\mathcal E, \mathcal B, P)$, which we will use in the sequel.  Sets
+$B \in \mathcal B$ are called \emph{events}, elements $e \in \mathcal E$ are
+called \emph{outcomes}, and $P(B)$ is called the probability of $B$.
+
+\begin{definition}\label{def:measurable_function}\citep[Def. 1.7, p.~4]{keener}
+Let $(\mathcal X, \mathcal A)$ and $(\mathcal E, \mathcal B)$ be measurable
+spaces.\footnote{Note that we allow $(\mathcal X, \mathcal A)$ and
+$(\mathcal E, \mathcal B)$ to be identical.}  A function $f$ is
+\emph{measurable} if
+\begin{align*}
+f^{-1}(B) \buildrel \text{d{}ef}\over = \{ x\in \mathcal X |\; f(x) \in B \} \in \mathcal A
+\end{align*}
+for every $B \in  \mathcal B$.
+\end{definition}
+
+\begin{definition}\label{def:random_variable}
+Given a probability space $(\mathcal E, \mathcal B, P)$ and the measurable
+space $(\reals, \mathcal A)$ where $\mathcal A$ is taken to be the Borel
+sets of $\reals$, a measurable function $X : \mathcal E  \rightarrow \reals$
+is called a \emph{random variable}.
+\end{definition}
+
+For each random variable $X$ of a probability space $(\mathcal E, \mathcal B, P)$,
+the induced probability measure $P_X$ given by
+\begin{align*}
+P_X(A) = P({e \in \mathcal E: X(e) \in A}) 
+\end{align*}
+for all Borel sets $A \in  \mathcal A$ is called the \emph{distribution} of $X$.
+
 
 In this class, we will mostly deal with the following two measures.
 \begin{example} 
@@ -123,38 +153,50 @@ If $\nu \ll \mu$, we also say that $\mu$ dominates $\nu$.
   If a $\sigma$-finite measure $\nu$ is absolutely continuous with respect to a
   $\sigma$-finite measure $\mu$ on $(\mathcal X, \mathcal A)$, then there exists
   an essentially unique\footnote{If $h$ is
-  another non-negative function that satisfies the conditions of the Radon-Nikodym theorem,
-  then $h=f$ a.e. $\mu$.} non-negative function $f$
+  another non-negative function that satisfies the conditions of the
+  Radon-Nikodym theorem, then $h=f$ a.e. $\mu$.} non-negative function $f$
   (sometimes denoted $\frac{d\nu}{d\mu}$) such that
   \[\nu(A) = \int_A f d\mu = \int_{\mathcal X} f \mathbf{1}_A d\mu\]
   for all $A \in \mathcal A$.
 \end{theorem}
 
 We will often call $f$ (or $\frac{d\nu}{d\mu}$) the Radon-Nikodym density (or
-derivative).  The use of this second notation and language is due to the fact that
-$f$ concerns a change of measure in an integral in a similar way that the
+derivative).  The use of this second notation and language is due to the fact
+that $f$ concerns a change of measure in an integral in a similar way that the
 standard derivative is used in a change of variable in an integral in classical
 calculus. 
 
 \begin{example}
   If $\mu$ is absolutely continuous with respect to the Lebesgue measure,
   then $\mu(A) = \int_A p(x) dx$.  If $\mu(A) =
-  1$, then $p(x)$ is called a probability density function.
+  1$, then $p(x)$ is called a \emph{probability density function}.
 \end{example}
 
 \begin{example}
-  If $\nu$ is absolutely continuous with respect to the counting measure. Then $\nu(A)
-  = \sum_{m \in A} P(m)$.  If $\nu(X) = 1$, then $P$ is a ``probability mass
-  function" (e.g., Poisson).
+  If $\nu$ is absolutely continuous with respect to the counting measure. Then
+  $\nu(A) = \sum_{m \in A} P(m)$.  If $\nu(X) = 1$, then $P$ is a
+  \emph{probability mass function} (e.g., Poisson).
 \end{example}
 
-For $\mu(A)$, we have
+We now briefly describe how to define the integral of certain functions $f$
+against a measure $\mu$.
+For any $A \in \mathcal A$, we have
 \begin{align*}
-   \int \mathbf{1}_A(x) \mu(dx) &:= \mu(A) \\
-   \int a \mathbf{1}_A(x) \mu(Dx) &:= \int f d\mu,\ f = a \mathbf{1}_A \\
-   \int \sum_{i=1}^n a_i \mathbf{1}_{A_i}(x) \mu(dx) &:= \int f d\mu,\ f = \sum
-   a_i \mathbf{1}_{A_i}
+   \int \mathbf{1}_A(x) \mu(dx) = \mu(A).
 \end{align*}
+If $f = a \mathbf{1}_A$, we have
+\begin{align*}
+   \int f d\mu = a \int \mathbf{1}_A(x) \mu(dx) = a\mu(A).
+\end{align*}
+If $f = \sum a_i \mathbf{1}_{A_i}$, we have
+\begin{align*}
+   \int f d\mu =  \sum_{i=1}^n a_i \int \mathbf{1}_{A_i}(x) \mu(dx) = \sum_{i=1}^n a_i \mu(A_i).
+\end{align*}
+Function of the last form are called \emph{simple functions}.  It can be shown
+that the integral of nonnegative measurable functions can be approximated by
+using an increasing sequence of simple functions.  To integrate general measurable
+functions requires splitting them into positive and negative parts.  The full
+theory is covered in Statistics 205A.
 
 An important application of the Radon-Nikodym derivative, which we will see
 again later in the course, is the non-symmetric measure of the information
@@ -173,7 +215,7 @@ lost when using $\nu$ to approximate $\mu$.
 Recall the definition of conditional probabilities from elementary probability.
 
 \begin{definition}
-  Let $(\Omega, \mathcal F, P)$ be a probability space with events $A$ and $B$
+  Let $(\mathcal E, \mathcal B, P)$ be a probability space with events $A$ and $B$
   such that $P(B) \neq 0$.  Then the conditional probability $P(A|B)$ of $A$
   given $B$ is defined as 
   \begin{align*}
@@ -280,18 +322,19 @@ $\mathcal X \times \mathcal Y$.
 Before discussing the conditions under which we can move a limit under the
 integral, note that the answer to this questions will inform us about when we
 can move differentiation under the integral since it is a special case of a
-limit.  If the domain of integration is finite, then we can safely move the
-limit under the integral.  This in turn means that we can exchange
+limit.  If the domain of integration is finite and the function being
+integrated and its partial derivative are continuous, then we can safely move
+the limit under the integral.  This in turn means that we can exchange
 differentiation with the integral (this is known as Leibniz' rule).  However,
-when the domain of integration isn't finite the situation becomes more
+when the domain of integration is not finite the situation becomes more
 complicated as illustrated by the following example.
 
 \begin{example}
 Consider the sequence of functions $f_n(x) = \mathbf{1}_{(n, n+1)}(x)$ for all
 $x \in \reals$.  Then
 \begin{align*}
-  \lim_{n \rightarrow \infty} f_n(x) &= 0 \quad \text{for all $x$, but}\\
-  \lim_{n \rightarrow \infty} \int f_n(x) dx &= 1.
+  \lim_{n \rightarrow \infty} f_n(x) = 0 \quad \text{for all $x$, but} \quad
+  \lim_{n \rightarrow \infty} \int f_n(x) dx = 1.
 \end{align*}
 \end{example}
 
