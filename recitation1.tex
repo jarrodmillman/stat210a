@@ -49,7 +49,7 @@ Millman \& Richard Shin}{September 3, 2014}
 \section{Densities (Radon-Nikodym)}
 
 Recall that a random variable is a real-valued function on the event space.
-In Figure~\ref{fig:figure1}, we have a two plots from the event space to values
+In Figure~\ref{fig:figure1}, we have two plots from the event space to values
 of a random variable.
 
 \begin{figure}[ht]
@@ -64,20 +64,20 @@ To compute the probability of the random variable taking on certain values
 interval $B$ for the right-hand figure), we can measure the size of the
 corresponding event space.  For example, in the right-hand plot above, we
 have: 
-
 \begin{align*}
-\nu(X \in B) &= \mu(X^{-1}(B)) = \mu(A = A_1 \cup A_2) = \mu(A)
+\nu(X \in B) = \mu(X^{-1}(B)) = \mu(A = A_1 \cup A_2) = \mu(A)
 \end{align*}
-
-To make this notion more precise, we first define what we mean by ``measure
+To make this notion precise, we must first define what we mean by ``measure
 the size".
 
 \begin{definition}\label{def:measure}\citep[Def. 1.4, p.~2]{keener}
-  Let $\mathcal A$ be a $\sigma$-field of a set $\mathcal X$.  A real-valued
+  Let $\mathcal A$ be a $\sigma$-field\footnote{A $\sigma$-field of a set $X$
+  is a nonempty set of subsets of X, which is closed under countable set operations.}
+  of a set $\mathcal X$.  A real-valued
   function $\mu$ on $\mathcal A$ is called a \emph{measure} if it is
   non-negative and countably additive:
   \begin{enumerate}
-    \item  $\mu(A) \in [0, \infty]$ for all $A \in \mathcal A$.
+    \item $\mu(A) \in [0, \infty]$ for all $A \in \mathcal A$.
     \item $\sum_{i=1}^\infty \mu(A_i) = \mu\left(\bigcup_{i=1}^\infty
       A_i\right)$ when $A_i$ are disjoint.
   \end{enumerate}
@@ -106,7 +106,7 @@ for every $B \in  \mathcal B$.
 
 \begin{definition}\label{def:random_variable}
 Given a probability space $(\mathcal E, \mathcal B, P)$ and the measurable
-space $(\reals, \mathcal A)$ where $\mathcal A$ is taken to be the Borel
+space $(\reals, \mathcal A)$ where $\mathcal A$ is the Borel
 sets of $\reals$, a measurable function $X : \mathcal E  \rightarrow \reals$
 is called a \emph{random variable}.
 \end{definition}
@@ -180,22 +180,22 @@ calculus.
   \emph{probability mass function} (e.g., Poisson).
 \end{example}
 
-We now briefly describe how to define the integral of certain functions $f$
-against a measure $\mu$.
+To indicate how we might define the integral of a function $f$
+against a measure $\mu$, we consider a few simple examples.
 For any $A \in \mathcal A$, we have
 \begin{align*}
    \int \mathbf{1}_A(x) \mu(dx) = \mu(A).
 \end{align*}
-If $f = a \mathbf{1}_A$, we have
+If $f = a \mathbf{1}_A$, then we have
 \begin{align*}
    \int f d\mu = a \int \mathbf{1}_A(x) \mu(dx) = a\mu(A).
 \end{align*}
-If $f = \sum a_i \mathbf{1}_{A_i}$, we have
+More generally, if $f = \sum a_i \mathbf{1}_{A_i}$, then we have
 \begin{align*}
    \int f d\mu =  \sum_{i=1}^n a_i \int \mathbf{1}_{A_i}(x) \mu(dx) = \sum_{i=1}^n a_i \mu(A_i).
 \end{align*}
 Function of the last form are called \emph{simple functions}.  It can be shown
-that the integral of nonnegative measurable functions can be approximated by
+that the integral of a nonnegative measurable function can be approximated by
 using an increasing sequence of simple functions.  To integrate general measurable
 functions requires splitting them into positive and negative parts.  The full
 theory is covered in Statistics 205A.
@@ -239,6 +239,8 @@ For our purposes, it is desirable to extend the definition to allow for
 the case that $P(B) = 0$.  For instance, if $B$ is the event that a
 continuous random variable takes a fixed value.  
 
+Rather than considering the continuous case, let us consider how we
+would form conditional expectations for discrete random variables.
 \begin{align*}
   P(Y = y) \\
   \ex[f(Y)] &= \sum_y f(y) P(Y = y) \\
@@ -393,7 +395,7 @@ can move the limit under the integral in \eqref{eq:logpart2}. At the end of
 section $2.3$ in Keener (for the details please refer to the text), we find
 such a function
 \begin{align*}
-g(x) \defeq \frac{1}{c} \left(e^{2cT(x)} + e^{-2cT(x)} \right)h(x)
+g(x) \defeq \frac{1}{c} \left(e^{2cT(x)} + e^{-2cT(x)} \right)h(x).
 \end{align*}
 So by dominated convergence, we have
 \begin{align}
